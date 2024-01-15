@@ -5,3 +5,17 @@ export interface Profile {
   display_name: string;
   biography: string;
 }
+
+export interface Orgs {
+  id: string;
+  name: string;
+  description: string;
+  directors: string[];
+  members: string[];
+  mailinglist: string;
+  type: string;
+  comptype: string;
+  // think about how we want to do meeting time? two separate entries?
+  meetingtime: string;
+  timecommitment: string;
+}

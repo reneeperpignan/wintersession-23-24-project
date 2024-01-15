@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <TypographyH2>Dashboard</TypographyH2>
+      <TypographyH2>Dashboard I edited this from renee</TypographyH2>
       <TypographyP>This is a protected route accessible only to signed-in users.</TypographyP>
       {user.email && <TypographyP>{`Your email is ${user.email}`}</TypographyP>}
     </>

@@ -12,8 +12,18 @@ export default function Navbar({ className, ...props }: React.HTMLAttributes<HTM
         Home
       </Link>
       {user && user != "loading" && (
-        <Link href="/dashboard" className="text-sm font-medium transition-colors hover:text-primary">
-          Dashboard
+        <Link href="/org-catalog" className="text-sm font-medium transition-colors hover:text-primary">
+          Org Catalog
+        </Link>
+      )}
+      {user && user != "loading" && (
+        <Link href="/comping" className="text-sm font-medium transition-colors hover:text-primary">
+          Comping
+        </Link>
+      )}
+      {user && user != "loading" && (
+        <Link href="/joined" className="text-sm font-medium transition-colors hover:text-primary">
+          Joined
         </Link>
       )}
     </nav>

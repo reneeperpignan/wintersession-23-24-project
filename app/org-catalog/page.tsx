@@ -3,7 +3,7 @@ import { TypographyH2, TypographyP } from "@/components/ui/typography";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "../(context)/auth-context";
 
-export default function Dashboard() {
+export default function OrgCatalog() {
   const { user } = useAuthContext();
 
   if (!user) {

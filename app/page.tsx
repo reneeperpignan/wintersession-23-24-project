@@ -1,6 +1,6 @@
 "use client";
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
-import OrgDetailDialog from "./org-detail-dialog";
+import OrgDetailDialog from "./org-catalog/org-detail-dialog";
 
 
 export default function Home() {

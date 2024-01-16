@@ -1,5 +1,13 @@
 "use client";
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Home() {
   return (
@@ -13,6 +21,18 @@ export default function Home() {
         This page is an unprotected route accessible to anyone who visits the website. Log in to view authenticated
         routes!
       </TypographyP>
+      <Card>
+        <CardHeader>
+          <CardTitle>Org Card</CardTitle>
+          <CardDescription>Org Teaser</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Card Content</p>
+        </CardContent>
+        <CardFooter>
+          <p>Card Footer</p>
+        </CardFooter>
+      </Card>
     </>
   );
 }

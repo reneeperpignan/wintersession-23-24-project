@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import { Button } from "@/components/ui/button"
 
-import Form from "./form";
+import Form from "./org-catalog/form";
 
 
 
@@ -54,7 +54,6 @@ import Form from "./form";
 
 export default function Home() {
   const { user } = useAuthContext();
-  const [showForm, setShowForm] = useState(false);
   if (!user || user == null) {
     // this is a protected route - only users who are signed in can view this route
     return (
@@ -71,29 +70,24 @@ export default function Home() {
       </>
     );
   }
-  const handleClick = () => {
-    console.log("add club clicked");
-    setShowForm(!showForm)
-  };
 
-  const handleSubmit = (formData:FormData) => {
-    console.log(formData);
-    setShowForm(false); // Hide form after submit
-  };
 
   if (!user || user === "loading") {
     return <TypographyP>Loading...</TypographyP>;
   }
   return (
-    <div className="flex flex-col items-center">
-      <TypographyH2>Hi {user.displayName}!</TypographyH2>
-      <TypographyH2>Welcome back to SOCO</TypographyH2>
-      {user.email && <TypographyP>You are logged in as {user.email}</TypographyP>}
-      <div className="self-end mt-4"> {/* Align button and form to the right */}
-        <Button variant="outline" onClick={handleClick}>Register club</Button>
-        {showForm && <Form onSubmit={handleSubmit} />}
+    <>
+      <div className="flex flex-col items-center">
+        <TypographyH2>Hi {user.displayName}!</TypographyH2>
+        <TypographyH2>Welcome back to SOCO</TypographyH2>
+        {user.email && <TypographyP>You are logged in as {user.email}</TypographyP>}
       </div>
-    </div>
-
+      <div className="items-left">
+        <TypographyH2>My Clubs</TypographyH2>
+        <br/><p>Cards go here</p><br/>
+        <TypographyH2>Clubs currently comping</TypographyH2>
+        <br/><p>Cards go here</p><br/>
+      </div>
+    </>
   );
 }

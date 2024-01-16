@@ -20,7 +20,7 @@ interface FormData {
   timeUpper: number;
 }
 
-const clubTypes = ["Academic", "Sports", "Music", "Arts", "Technology", "Other"];
+const clubTypes = ["Academic", "Sports", "Music", "Arts", "Professional", "Affinity", "Other"];
 const compTypes = ["Mail sign-up", "Completion comp", "Competitive comp"];
 const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Fridays", "Saturday", "Sunday"];
 
@@ -67,7 +67,7 @@ function Form({ onSubmit }: FormProps) {
       <br />
       <label>
         Type of club:
-        <select name="type" value={formData.clubType} required>
+        <select name="clubType" value={formData.clubType} required>
           <option value="">Select a type</option>
           {clubTypes.map((type:string) => (
             <option key={type} value={type}>{type}</option>
@@ -77,7 +77,7 @@ function Form({ onSubmit }: FormProps) {
       <br />
       <label>
         Website link:
-        <input type="url" value={formData.website}/>
+        <input type="url" name="website" value={formData.website} onChange={handleInputChange}/>
       </label>
       <br />
       <label>
@@ -104,9 +104,9 @@ function Form({ onSubmit }: FormProps) {
       <label>
         Time commitment: <br />
         Between
-          <input type="number" name="timeLower" value={formData.timeLower} required />
+          <input type="number" name="timeLower" value={formData.timeLower} onChange={handleInputChange} required />
         and
-          <input type="number" name="timeUpper" value={formData.timeUpper} required />
+          <input type="number" name="timeUpper" value={formData.timeUpper} onChange={handleInputChange} required />
         hours
       </label>
       <br />

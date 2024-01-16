@@ -1,24 +1,17 @@
-"use client";
+import { type Orgs } from "@/lib/firebase/schema";
 
-import { Orgs } from "@/lib/firebase/schema"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
-  
-<Card>
-  <CardHeader>
-    <CardTitle>Org Card</CardTitle>
-    <CardDescription>Description</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <p>Card Content</p>
-  </CardContent>
-  <CardFooter>
-    <p>Card Footer</p>
-  </CardFooter>
-</Card>
+function org_card(props: Orgs) {
+  return (
+    <div class="card">
+      {/* Eventually we'll have an image here */}
+      <div class="container">
+        <h4>
+          <b>{props.name}</b>
+        </h4>
+        <p>{props.description}</p>
+      </div>
+    </div>
+  );
+}
+
+export default org_card;

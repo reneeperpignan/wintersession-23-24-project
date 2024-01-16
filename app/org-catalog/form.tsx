@@ -13,6 +13,7 @@ interface FormData {
   mailingList?: string;
   clubType: string;
   website?: string;
+  logo?: File;
   compType: string;
   meetingDay: string;
   meetingTime: string;
@@ -31,6 +32,7 @@ function Form({ onSubmit }: FormProps) {
     mailingList: '',
     clubType: '',
     website: '',
+    logo: undefined,
     compType: '',
     meetingDay: '',
     meetingTime: '12:00',
@@ -39,8 +41,14 @@ function Form({ onSubmit }: FormProps) {
   });
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, files} = event.target;
+    if (name === "logo") {
+      // Handle file input
+      const file = files?.[0];
+      setFormData({ ...formData, logo: file });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -78,6 +86,11 @@ function Form({ onSubmit }: FormProps) {
       <label>
         Website link:
         <input type="url" name="website" value={formData.website} onChange={handleInputChange}/>
+      </label>
+      <br />
+      <label>
+        Upload Logo (.bmp):
+        <input type="file" name="logo" accept=".bmp" onChange={handleInputChange} />
       </label>
       <br />
       <label>

@@ -2,12 +2,39 @@
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
 import { useAuthContext } from "./(context)/auth-context";
 import React, { useState } from 'react';
+import Card from 'react-bootstrap/Card';
 
-import { Button } from "@/components/ui/button"
+import styled from "styled-components";
 
-import Form from "./org-catalog/form";
+const theme = {
+  Crimson: {
+    default: "#A41034",
+    hover: "#CA0000",
+  },
+};
 
+const Button = styled.button`
+  background-color: ${(props) => theme[props.theme].default};
+  color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+  outline: 0;
+  text-transform: uppercase;
+  margin: 10px 0px;
+  cursor: pointer;
+  transition: ease background-color 250ms;
+  &:hover {
+    background-color: ${(props) => theme[props.theme].hover};
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+`;
 
+Button.defaultProps = {
+  theme: "Crimson",
+};
 
 
 
@@ -76,7 +103,7 @@ export default function Home() {
     return <TypographyP>Loading...</TypographyP>;
   }
   return (
-    <>
+    <div >
       <div className="flex flex-col items-center">
         <TypographyH2>Hi {user.displayName}!</TypographyH2>
         <TypographyH2>Welcome back to SOCO</TypographyH2>
@@ -84,10 +111,27 @@ export default function Home() {
       </div>
       <div className="items-left">
         <TypographyH2>My Clubs</TypographyH2>
-        <br/><p>Cards go here</p><br/>
+        <br/>
+        <Card style={{ width: '18rem'}} class="shadow-lg p-3 mb-5 bg-body rounded" >
+        <Card.Img variant="top" src="https://www.colorhexa.com/a41034.png" style={{height: 180}}  width="100%"/>
+        <Card.Body>
+          <Card.Title>Harvard Tech for Social Good</Card.Title>
+          <Card.Subtitle>Meeting times</Card.Subtitle>
+          <Card.Text>
+            Explanation of the club.
+          </Card.Text>
+          <Button>Check out future events</Button>
+        </Card.Body>
+      </Card>
+        <br/>
         <TypographyH2>Clubs currently comping</TypographyH2>
-        <br/><p>Cards go here</p><br/>
+        <br/><p>No clubs currently comping</p><br/>
       </div>
-    </>
+      <div className="items-end">
+        <TypographyH2>Contact us</TypographyH2>
+        <TypographyP>Email: tech4sg@harvard.edu</TypographyP>
+        <TypographyP>Cell: 123-456-789</TypographyP>
+      </div>
+    </div>
   );
 }

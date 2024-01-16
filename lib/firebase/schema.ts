@@ -10,12 +10,15 @@ export interface Orgs {
   id: string;
   name: string;
   description: string;
+  logo: ImageBitmap;
   directors: string[];
   members: string[];
-  mailinglist: string;
-  type: string;
-  comptype: string;
+  mailingList: string;
+  clubType: string;
+  website: string;
+  compType: string;
   // think about how we want to do meeting time? two separate entries?
-  meetingtime: string;
-  timecommitment: string;
+  meetingDay: string;
+  meetingTime: string;
+  timeCommitment: string;
 }

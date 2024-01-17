@@ -1,10 +1,9 @@
 "use client";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
-import Card from "react-bootstrap/Card";
+import styled, { type DefaultTheme } from "styled-components";
 import { useAuthContext } from "./(context)/auth-context";
 import OrgDetailDialog from "./org-catalog/org-detail-dialog";
-
-import styled, { type DefaultTheme } from "styled-components";
 
 const theme: DefaultTheme = {
   Crimson: {
@@ -132,19 +131,115 @@ export default function Home() {
       <div className="items-left">
         <TypographyH2>My Clubs</TypographyH2>
         <br />
-        <Card style={{ width: "18rem" }} className="bg-body mb-5 rounded p-3 shadow-lg">
-          <Card.Img variant="top" src="https://www.colorhexa.com/a41034.png" style={{ height: 180 }} width="100%" />
-          <Card.Body>
-            <Card.Title>Harvard Tech for Social Good</Card.Title>
-            <Card.Subtitle>Meeting times</Card.Subtitle>
-            <Card.Text>Explanation of the club.</Card.Text>
-            <Button>Check out future events</Button>
-          </Card.Body>
-        </Card>
+        <div className="flexContainer">
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+        </div>
         <br />
         <TypographyH2>Clubs currently comping</TypographyH2>
         <br />
-        <p>No clubs currently comping</p>
+        <div className="flexContainer">
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+        </div>
         <br />
       </div>
       <div className="items-end">

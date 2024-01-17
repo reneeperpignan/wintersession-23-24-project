@@ -1,8 +1,26 @@
 "use client";
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
+import { type Orgs } from "@/lib/firebase/schema";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "../(context)/auth-context";
+import OrgCardCatalog from "./org-card";
+import OrgCardComp from "./org-card-comp";
+import OrgCardCurrent from "./org-card-current";
 import OrgDetailDialog from "./org-detail-dialog";
+
+const MathClub: Orgs = {
+  id: "123",
+  name: "MathClub",
+  description: "Doing math",
+  directors: ["josh", "jodie"],
+  members: ["abe", "bee", "cal"],
+  mailinglist: "mathclub@email.org",
+  type: "academic",
+  comptype: "comp optional",
+  // think about how we want to do meeting time? two separate entries?
+  meetingtime: "6 pm Monday",
+  timecommitment: "5 hours per week",
+};
 
 import { useState } from "react";
 
@@ -83,6 +101,15 @@ export default function OrgCatalog() {
   return (
     <>
       <TypographyH2>Student Organization Catalog</TypographyH2>
+      Home Page and Favorited List
+      <OrgCardCatalog {...MathClub} />
+      Comp <OrgCardComp {...MathClub} />
+      Current <OrgCardCurrent {...MathClub} />
+      {/* <Image
+        src="/harvard-pic.jpg"
+        width={500}
+        height={500}
+      /> */}
       <TypographyP>This is a protected route accessible only to signed-in users.</TypographyP>
       {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
       <div className="mt-4 self-end">

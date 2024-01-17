@@ -8,14 +8,15 @@ export default function OrgCardComp(props: Orgs) {
   return (
     <Card>
       <CardHeader>
-        <CardDescription># Members</CardDescription>
+        <CardDescription>Members</CardDescription>
         <CardTitle>{props.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        Org Description
+        {props.description}
         <div>
-          <Badge variant="outline">Time Commitment</Badge>
-          <Badge variant="outline">Org Type</Badge>
+          <Badge variant="outline">{props.timecommitment}</Badge>
+          <Badge variant="outline">{props.comptype}</Badge>
+          <Badge variant="outline">{props.type}</Badge>
         </div>
       </CardContent>
       <CardFooter>

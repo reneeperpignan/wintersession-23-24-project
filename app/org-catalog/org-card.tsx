@@ -5,19 +5,20 @@ import { type Orgs } from "@/lib/firebase/schema";
 
 export default function OrgCardHomePage(props: Orgs) {
   // Calculate the number of members
-  const numberOfMembers = props.members.length;
+  const MemberCount = props.members.length;
 
   return (
     <Card>
       <CardHeader>
-        <CardDescription>{`# Members: ${numberOfMembers}`}</CardDescription>
+        <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{props.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        Org Description
+        {props.description}
         <div>
-          <Badge variant="outline">Time Commitment</Badge>
-          <Badge variant="outline">Org Type</Badge>
+          <Badge variant="outline">{props.timecommitment}</Badge>
+          <Badge variant="outline">{props.comptype}</Badge>
+          <Badge variant="outline">{props.type}</Badge>
         </div>
       </CardContent>
       <CardFooter>

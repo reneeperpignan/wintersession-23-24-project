@@ -15,7 +15,7 @@ const MathClub: Orgs = {
   members: ["abe", "bee", "cal"],
   mailinglist: "mathclub@email.org",
   type: "academic",
-  comptype: "optional",
+  comptype: "comp optional",
   // think about how we want to do meeting time? two separate entries?
   meetingtime: "6 pm Monday",
   timecommitment: "5 hours per week",
@@ -38,8 +38,8 @@ export default function OrgCatalog() {
       <TypographyH2>Dashboard I edited this from renee</TypographyH2>
       Home Page and Favorited List
       <OrgCardHomePage {...MathClub} />
-      Comp <OrgCardComp />
-      Current <OrgCardCurrent />
+      Comp <OrgCardComp {...MathClub} />
+      Current <OrgCardCurrent {...MathClub} />
       {/* <Image
         src="/harvard-pic.jpg"
         width={500}

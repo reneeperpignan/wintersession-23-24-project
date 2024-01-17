@@ -2,9 +2,9 @@ import { type Orgs } from "@/lib/firebase/schema";
 
 function org_card(props: Orgs) {
   return (
-    <div class="card">
+    <div className="card">
       {/* Eventually we'll have an image here */}
-      <div class="container">
+      <div className="container">
         <h4>
           <b>{props.name}</b>
         </h4>

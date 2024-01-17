@@ -1,13 +1,12 @@
 // Type definitions for all Firestore collections
 
-import { type } from "os";
-
 export interface Profile {
   user_id: string;
   display_name: string;
   biography: string;
 }
 
+// everything must be required
 export interface Orgs {
   id: string;
   name: string;
@@ -15,9 +14,20 @@ export interface Orgs {
   directors: string[];
   members: string[];
   mailinglist: string;
-  type: string;
+  type: string; //define a type,
   comptype: string;
   // think about how we want to do meeting time? two separate entries?
+  meetingday: string;
   meetingtime: string;
-  timecommitment: string;
+  timelower: number;
+  timeupper: number;
+  logo: string;
+  website: string;
 }
+
+//optional input
+// type?: string;
+// type: string | null;
+
+//enumerated types
+// type: "Pre-Professional" | "cultural " | "Other"

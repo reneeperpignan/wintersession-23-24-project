@@ -109,8 +109,11 @@ export default function Home() {
           type="Technology"
           comptype="Competitive"
           meetingtime="Mondays 6-8 PM"
-          timeupper="7-10 hours per week"
-          timelower="7-10 hours per week"
+          timelower={7}
+          timeupper={10}
+          meetingday="Tuesday"
+          logo=""
+          website="www.google.com"
         />
       </>
     );

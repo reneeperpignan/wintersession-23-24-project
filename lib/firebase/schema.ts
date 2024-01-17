@@ -19,8 +19,8 @@ export interface Orgs {
   // think about how we want to do meeting time? two separate entries?
   meetingday: string;
   meetingtime: string;
-  timelower: number;
-  timeupper: number;
+  timelower: number; //these are the time commitment lower bound
+  timeupper: number; //time commitment upper bound
   logo: string;
   website: string;
 }

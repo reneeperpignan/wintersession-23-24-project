@@ -7,6 +7,7 @@ import OrgCardCatalog from "./org-card";
 import OrgCardComp from "./org-card-comp";
 import OrgCardCurrent from "./org-card-current";
 import OrgDetailDialog from "./org-detail-dialog";
+import {addNewOrgs} from "@/lib/firebase/firestore"
 
 const MathClub: Orgs = {
   id: "123",
@@ -89,12 +90,14 @@ export default function OrgCatalog() {
     setIsFormOpen(true);
   };
 
-  const handleSubmit = (data) => {
+  const handleSubmit = (data:FormData) => {
     console.log(data);
     setIsSubmitted(true);
     setFormData(data);
     setIsDialogOpen(true);
     setIsFormOpen(false);
+    // add new form data as an org in firebase --- use effect
+    addNewOrgs(data);
     // Hide form after submit
   };
 

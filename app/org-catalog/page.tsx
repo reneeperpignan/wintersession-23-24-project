@@ -1,26 +1,24 @@
 "use client";
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
 import { redirect } from "next/navigation";
-import styled from "styled-components";
 import { useAuthContext } from "../(context)/auth-context";
+import OrgDetailDialog from "./org-detail-dialog";
 
-import React, { useState } from 'react';
+import { useState } from "react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
-import Form from "./form";
 import ClubAlert from "./alert";
+import Form from "./form";
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogFooter,
+  DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-
+} from "@/components/ui/dialog";
 
 const theme = {
   Crimson: {
@@ -51,8 +49,6 @@ const theme = {
 Button.defaultProps = {
   theme: "Crimson",
 };
-
-
 
 export default function OrgCatalog() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -89,15 +85,17 @@ export default function OrgCatalog() {
       <TypographyH2>Student Organization Catalog</TypographyH2>
       <TypographyP>This is a protected route accessible only to signed-in users.</TypographyP>
       {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
-      <div className="self-end mt-4"> {/* Align button and form to the right */}
-        <Button variant="outline" onClick={handleClick}>Register club</Button>
+      <div className="mt-4 self-end">
+        {" "}
+        {/* Align button and form to the right */}
+        <Button variant="outline" onClick={handleClick}>
+          Register club
+        </Button>
         <Dialog open={isFormOpen}>
           <DialogContent>
             <DialogHeader>
-            <DialogTitle>Register new club</DialogTitle>
-            <DialogDescription>
-              Information will be added to our database.
-            </DialogDescription>
+              <DialogTitle>Register new club</DialogTitle>
+              <DialogDescription>Information will be added to our database.</DialogDescription>
             </DialogHeader>
             <DialogFooter>
               <Form onSubmit={handleSubmit} />
@@ -105,13 +103,33 @@ export default function OrgCatalog() {
           </DialogContent>
         </Dialog>
       </div>
-      {isDialogOpen && formData &&
-        <ClubAlert
-          formData={formData}
-          isOpen = {isDialogOpen}
-          onClose = {() => setIsDialogOpen(false)}
-        />
-      }
+      {isDialogOpen && formData && (
+        <ClubAlert formData={formData} isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} />
+      )}
+      <OrgDetailDialog
+        org={{
+          id: "org_1",
+          name: "Tech for Social Good",
+          description:
+            "Harvard Tech for Social Good (T4SG) leverages Harvard talent to \
+                        partner with nonprofits, government agencies, and social impact \
+                        organizations to amplify their impact through technology. Students \
+                        can develop their expertise in software engineering, user experience, \
+                        and ethics through semester-long projects with real-world clients.",
+          members: ["profile_1", "profile_2", "profile_3", "profile_4", "profile_5"],
+          directors: ["profile_1", "profile_4"],
+          mailinglist: "https://socialgood.hcs.harvard.edu/",
+          type: "Technology",
+          comptype: "Competitive",
+          meetingtime: "Mondays 6-8 PM",
+          timeupper: 7,
+          timelower: 10,
+          meetingday: "Tuesday",
+          logo: "string",
+          website: "www.google.com",
+        }}
+        cardEditsVisible={true}
+      />
     </>
   );
 }

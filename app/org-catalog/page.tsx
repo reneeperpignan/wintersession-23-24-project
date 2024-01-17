@@ -3,7 +3,7 @@ import { TypographyH2, TypographyP } from "@/components/ui/typography";
 import { type Orgs } from "@/lib/firebase/schema";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "../(context)/auth-context";
-import OrgCardHomePage from "./org-card";
+import OrgCardCatalog from "./org-card";
 import OrgCardComp from "./org-card-comp";
 import OrgCardCurrent from "./org-card-current";
 
@@ -37,7 +37,7 @@ export default function OrgCatalog() {
     <>
       <TypographyH2>Dashboard I edited this from renee</TypographyH2>
       Home Page and Favorited List
-      <OrgCardHomePage {...MathClub} />
+      <OrgCardCatalog {...MathClub} />
       Comp <OrgCardComp {...MathClub} />
       Current <OrgCardCurrent {...MathClub} />
       {/* <Image

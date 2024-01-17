@@ -2,14 +2,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { type Orgs } from "@/lib/firebase/schema";
+import { Toggle } from "@/components/ui/toggle"
 
-export default function OrgCardHomePage(props: Orgs) {
+
+// Card for catalog and favorited page
+
+export default function OrgCardCatalog(props: Orgs) {
   // Calculate the number of members
   const MemberCount = props.members.length;
 
   return (
     <Card>
       <CardHeader>
+        <Toggle>&#9734;</Toggle>
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{props.name}</CardTitle>
       </CardHeader>

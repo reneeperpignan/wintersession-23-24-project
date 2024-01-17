@@ -3,12 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { type Orgs } from "@/lib/firebase/schema";
+import { Toggle } from "@/components/ui/toggle"
+
 
 export default function OrgCardComp(props: Orgs) {
+// Calculate the number of members
+const MemberCount = props.members.length;
   return (
     <Card>
       <CardHeader>
-        <CardDescription>Members</CardDescription>
+        <Toggle>&#9734;</Toggle> 
+        <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{props.name}</CardTitle>
       </CardHeader>
       <CardContent>

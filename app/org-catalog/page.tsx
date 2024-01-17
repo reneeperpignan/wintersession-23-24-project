@@ -1,11 +1,25 @@
 "use client";
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
+import { type Orgs } from "@/lib/firebase/schema";
 import { redirect } from "next/navigation";
 import { useAuthContext } from "../(context)/auth-context";
 import OrgCardHomePage from "./org-card";
 import OrgCardComp from "./org-card-comp";
 import OrgCardCurrent from "./org-card-current";
-import Image from "next/image";
+
+const MathClub: Orgs = {
+  id: "123",
+  name: "MathClub",
+  description: "Doing math",
+  directors: ["josh", "jodie"],
+  members: ["abe", "bee", "cal"],
+  mailinglist: "mathclub@email.org",
+  type: "academic",
+  comptype: "optional",
+  // think about how we want to do meeting time? two separate entries?
+  meetingtime: "6 pm Monday",
+  timecommitment: "5 hours per week",
+};
 
 export default function OrgCatalog() {
   const { user } = useAuthContext();
@@ -22,10 +36,11 @@ export default function OrgCatalog() {
   return (
     <>
       <TypographyH2>Dashboard I edited this from renee</TypographyH2>
-      Home Page and Favorited List<OrgCardHomePage/>
-      Comp <OrgCardComp/>
-      Current <OrgCardCurrent/>
-      {/* <Image 
+      Home Page and Favorited List
+      <OrgCardHomePage {...MathClub} />
+      Comp <OrgCardComp />
+      Current <OrgCardCurrent />
+      {/* <Image
         src="/harvard-pic.jpg"
         width={500}
         height={500}

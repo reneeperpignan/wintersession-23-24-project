@@ -48,10 +48,7 @@ export default function OrgDetailDialog({ org, cardEditsVisible }: OrgDetailDial
               <b>Meeting Time:</b> {org.meetingtime}
             </TypographyP>
             <TypographyP>
-              <b>Time Commitment:</b> {org.timeupper}
-            </TypographyP>
-            <TypographyP>
-              <b>Time Commitment:</b> {org.timelower}
+              <b>Time Commitment:</b> {org.timelower}-{org.timeupper} hours per week
             </TypographyP>
             {cardEditsVisible && (
               <Button

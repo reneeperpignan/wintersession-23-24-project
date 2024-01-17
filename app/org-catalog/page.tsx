@@ -9,12 +9,14 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button"
 
 import Form from "./form";
+import ClubAlert from "./alert";
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogFooter,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
@@ -53,24 +55,32 @@ Button.defaultProps = {
 
 
 export default function OrgCatalog() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const { user } = useAuthContext();
 
   if (!user) {
     // this is a protected route - only users who are signed in can view this route
     redirect("/");
   }
-  const [showForm, setShowForm] = useState(false);
 
   if (user === "loading") {
     return <TypographyP>Loading...</TypographyP>;
   }
   const handleClick = () => {
-    console.log("add club clicked");
+    console.log("register club clicked");
+    setIsFormOpen(true);
   };
 
-  const handleSubmit = (formData:FormData) => {
-    console.log(formData);
-    alert("{formData.name} created");
+  const handleSubmit = (data) => {
+    console.log(data);
+    setIsSubmitted(true);
+    setFormData(data);
+    setIsDialogOpen(true);
+    setIsFormOpen(false);
     // Hide form after submit
   };
 
@@ -80,10 +90,8 @@ export default function OrgCatalog() {
       <TypographyP>This is a protected route accessible only to signed-in users.</TypographyP>
       {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
       <div className="self-end mt-4"> {/* Align button and form to the right */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" onClick={handleClick}>Register club</Button>
-          </DialogTrigger>
+        <Button variant="outline" onClick={handleClick}>Register club</Button>
+        <Dialog open={isFormOpen}>
           <DialogContent>
             <DialogHeader>
             <DialogTitle>Register new club</DialogTitle>
@@ -91,10 +99,19 @@ export default function OrgCatalog() {
               Information will be added to our database.
             </DialogDescription>
             </DialogHeader>
+            <DialogFooter>
               <Form onSubmit={handleSubmit} />
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
+      {isDialogOpen && formData &&
+        <ClubAlert
+          formData={formData}
+          isOpen = {isDialogOpen}
+          onClose = {() => setIsDialogOpen(false)}
+        />
+      }
     </>
   );
 }

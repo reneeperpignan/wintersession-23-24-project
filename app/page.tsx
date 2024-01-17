@@ -97,7 +97,7 @@ export default function Home() {
           routes!
         </TypographyP>
         <OrgDetailDialog
-          id="org_1"
+          id="" //we be using the uid
           name="Tech for Social Good"
           description="Harvard Tech for Social Good (T4SG) leverages Harvard talent to partner with nonprofits,
                      government agencies, and social impact organizations to amplify their impact through technology.

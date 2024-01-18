@@ -19,7 +19,8 @@ const MathClub: Orgs = {
   comptype: "comp optional",
   // think about how we want to do meeting time? two separate entries?
   meetingtime: "6 pm Monday",
-  timecommitment: "5 hours per week",
+  timelower: 5,
+  timeupper: 6,
 };
 
 import { useState } from "react";

@@ -6,6 +6,12 @@ import { type Orgs } from "@/lib/firebase/schema";
 
 // Card for catalog and favorited page
 
+interface OrgCardProps {
+  organization: Orgs;
+  uid: string;
+  orgid: string;
+}
+
 export default function OrgCardCatalog(props: Orgs) {
   // Calculate the number of members
   const MemberCount = props.members.length;
@@ -20,7 +26,7 @@ export default function OrgCardCatalog(props: Orgs) {
       <CardContent>
         {props.description}
         <div>
-          <Badge variant="outline">{props.timecommitment}</Badge>
+          <Badge variant="outline">{props.timelower} - {props.timeupper} hrs/week</Badge>
           <Badge variant="outline">{props.comptype}</Badge>
           <Badge variant="outline">{props.type}</Badge>
         </div>

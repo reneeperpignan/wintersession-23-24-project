@@ -5,7 +5,7 @@ import { db } from "@/lib/firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 
 
-const TEST_ID = "f5ZNhh7ck4nLwFP206lX";
+const TEST_ID = "4gt81i16mse1kZgCVxmv";
 const docRef = doc(db, "orgs", TEST_ID);
 const docSnap = await getDoc(docRef);
 const TEST_ORG: Orgs = { ...docSnap.data(), id: TEST_ID } as Orgs;
@@ -15,7 +15,7 @@ export default function Comping() {
     <div>
       <TypographyH2>Comping</TypographyH2>
       <OrgDetailDialog
-        id="f5ZNhh7ck4nLwFP206lX"
+        id="4gt81i16mse1kZgCVxmv"
         org={TEST_ORG}
         cardEditsVisible={true}
       />

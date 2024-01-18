@@ -29,8 +29,9 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
     e.preventDefault();
     const decRef = doc(db, "orgs", id);
     await deleteDoc(decRef);
-
+    alert('The club is being deleted - may take a few moments to update.');
     router.refresh();
+    alert('The club has been deleted.')
   };
 
   const [isEditing, setIsEditing] = useState(false);

@@ -1,7 +1,11 @@
-// TODO: convert to shadcn
-
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { doc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface EditProps {
@@ -36,6 +41,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
 
   //more intuitive way:
   // const [open, setOpen] = useState(true);
+  const router = useRouter();
 
   const onSubmit = async () => {
     const docRef = doc(db, "orgs", id);
@@ -55,14 +61,16 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
     await updateDoc(docRef, orgdata)
       .then(() => {
         console.log("Value of an Existing Document Field has been updated");
+        alert("The club is being edited - may take a few moments to update.");
+        router.refresh();
       })
       .catch((error) => {
         console.log(error);
+        alert("There was an error. Please try again.")
       });
 
-    onClose();
+      onClose();
 
-    // showAlert('error', 'Org with id ${id} deleted successfully')
   };
 
   return (
@@ -82,7 +90,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
               className="col-span-3"
               type="text"
               id="name"
-              value={org.name}
+              placeholder={org.name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -95,7 +103,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
               className="col-span-3"
               type="text"
               id="description"
-              value={org.description}
+              placeholder={org.description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
@@ -135,13 +143,13 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
             </Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="col-span-3">
-                <Button variant="outline">{org.comptype}</Button>
+                <Button variant="outline">{comptype}</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Choose the comp type</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-                  <DropdownMenuRadioItem value="Competitive" onClick={() => setComptype("Competitive")}>
+                  <DropdownMenuRadioItem value="competitive" onClick={() => setComptype("Competitive")}>
                     Competitive
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem value="completion" onClick={() => setComptype("Completion")}>
@@ -161,7 +169,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
             </Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="col-span-3">
-                <Button variant="outline">{org.meetingday}</Button>
+                <Button variant="outline">{meetingday}</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Choose a day</DropdownMenuLabel>
@@ -204,7 +212,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
               className="col-span-3"
               type="text"
               id="meetingtime"
-              value={org.meetingtime}
+              placeholder={org.meetingtime}
               onChange={(e) => setMeetingtime(e.target.value)}
             />
           </div>

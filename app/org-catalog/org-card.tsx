@@ -17,9 +17,10 @@ export default function OrgCardCatalog(props: Orgs) {
   const MemberCount = props.members.length;
 
   return (
-    <Card>
-      <CardHeader>
-        <Toggle>&#9734;</Toggle>
+    <Card style={{ width: "400px" }}>
+      <CardHeader style={{ display: "flex", alignItems: "center" }}>
+        <img src="/harvard-pic.jpg" style={{ width: "150px", marginRight: "10px" }} />
+        <Toggle style={{ width: "50px" }}>&#9734;</Toggle>
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{props.name}</CardTitle>
       </CardHeader>

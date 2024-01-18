@@ -7,21 +7,22 @@ import OrgCardCatalog from "./org-card";
 import OrgCardComp from "./org-card-comp";
 import OrgCardCurrent from "./org-card-current";
 import OrgDetailDialog from "./org-detail-dialog";
+import RenderOrgs from "./render-orgs";
 
-const MathClub: Orgs = {
-  id: "123",
-  name: "MathClub",
-  description: "Doing math",
-  directors: ["josh", "jodie"],
-  members: ["abe", "bee", "cal"],
-  mailinglist: "mathclub@email.org",
-  type: "academic",
-  comptype: "comp optional",
-  // think about how we want to do meeting time? two separate entries?
-  meetingtime: "6 pm Monday",
-  timelower: 5,
-  timeupper: 6,
-};
+// const MathClub: Orgs = {
+//   id: "123",
+//   name: "MathClub",
+//   description: "Doing math",
+//   directors: ["josh", "jodie"],
+//   members: ["abe", "bee", "cal"],
+//   mailinglist: "mathclub@email.org",
+//   type: "academic",
+//   comptype: "comp optional",
+//   // think about how we want to do meeting time? two separate entries?
+//   meetingtime: "6 pm Monday",
+//   timelower: 5,
+//   timeupper: 6,
+// };
 
 import { useState } from "react";
 
@@ -65,9 +66,9 @@ const theme = {
 //   }
 // ;
 
-Button.defaultProps = {
-  theme: "Crimson",
-};
+// Button.defaultProps = {
+//   theme: "Crimson",
+// };
 
 export default function OrgCatalog() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -102,15 +103,17 @@ export default function OrgCatalog() {
   return (
     <>
       <TypographyH2>Student Organization Catalog</TypographyH2>
-      Home Page and Favorited List
-      <OrgCardCatalog {...MathClub} />
-      Comp <OrgCardComp {...MathClub} />
-      Current <OrgCardCurrent {...MathClub} />
-      {/* <Image
-        src="/harvard-pic.jpg"
-        width={500}
-        height={500}
-      /> */}
+      {/* Render all clubs */}
+      <RenderOrgs
+        uid={user.uid}
+        displayName={user.displayName}
+        email={user.email} //all things we don't need rn
+        phoneNumber={null}
+        photoURL={null}
+        providerId=""
+      />
+
+
       <TypographyP>This is a protected route accessible only to signed-in users.</TypographyP>
       {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
       <div className="mt-4 self-end">

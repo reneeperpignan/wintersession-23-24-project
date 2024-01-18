@@ -12,24 +12,25 @@ interface OrgCardProps {
   orgid: string;
 }
 
-export default function OrgCardCatalog(props: Orgs) {
+export default function OrgCardCatalog({organization, uid, orgid}: OrgCardProps) {
   // Calculate the number of members
-  const MemberCount = props.members.length;
+  const MemberCount = organization.members.length;
 
+  // Can make a flex box to create boundaries of card
   return (
-    <Card style={{ width: "400px" }}>
+    <Card style={{ width: "200px" }}> 
       <CardHeader style={{ display: "flex", alignItems: "center" }}>
         <img src="/harvard-pic.jpg" style={{ width: "150px", marginRight: "10px" }} />
         <Toggle style={{ width: "50px" }}>&#9734;</Toggle>
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
-        <CardTitle>{props.name}</CardTitle>
+        <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        {props.description}
+        {organization.description}
         <div>
-          <Badge variant="outline">{props.timelower} - {props.timeupper} hrs/week</Badge>
-          <Badge variant="outline">{props.comptype}</Badge>
-          <Badge variant="outline">{props.type}</Badge>
+          <Badge variant="outline">{organization.timelower} - {organization.timeupper} hrs/week</Badge>
+          <Badge variant="outline">{organization.comptype}</Badge>
+          <Badge variant="outline">{organization.type}</Badge>
         </div>
       </CardContent>
       <CardFooter>

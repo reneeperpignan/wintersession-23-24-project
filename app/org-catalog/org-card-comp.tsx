@@ -19,7 +19,7 @@ const MemberCount = props.members.length;
       <CardContent>
         {props.description}
         <div>
-          <Badge variant="outline">{props.timecommitment}</Badge>
+          <Badge variant="outline">{props.timelower} - {props.timeupper} hrs/week</Badge>
           <Badge variant="outline">{props.comptype}</Badge>
           <Badge variant="outline">{props.type}</Badge>
         </div>

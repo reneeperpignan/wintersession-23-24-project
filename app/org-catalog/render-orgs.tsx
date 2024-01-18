@@ -9,12 +9,13 @@ import { redirect } from "next/navigation";
 import { useAuthContext } from "../(context)/auth-context";
 import OrgCardCatalog from "./org-card";
 
-export default function RenderOrgsCatalog(uid: UserInfo) {
+export default function RenderOrgs(uid: UserInfo) {
     const [orgData, setOrgData] = useState<Orgs[]>([]); // Do we have loading or error states
 
     useEffect(() => {
         const q = query(collection(db, "organizations"));
     
+        // Map queried organization information to Orgs type
         const unsub = onSnapshot(q, (snapshot) => {
           const orgList: Orgs[] = snapshot.docs.map(
             (doc): Orgs =>
@@ -28,15 +29,15 @@ export default function RenderOrgsCatalog(uid: UserInfo) {
         return unsub;
       }, []);
 
-return (
-<div className="flex h-screen w-screen flex-wrap items-center justify-center">
-    {orgData.map((organization: Orgs) => (
-    <div key={organization.id}>
-        <OrgCardCatalog orgid={organization.id} uid={uid.uid} organization={organization} />
+    return (
+    <div className="flex h-screen w-screen flex-wrap items-center justify-center">
+        {orgData.map((organization: Orgs) => (
+        <div key={organization.id}>
+            <OrgCardCatalog orgid={organization.id} uid={uid.uid} organization={organization} />
+        </div>
+        ))}
     </div>
-    ))}
-</div>
-);
+    );
 
 }
 

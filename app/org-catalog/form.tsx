@@ -12,13 +12,13 @@ interface FormData {
   // directors  will be defaulted to signed-in user
   mailinglist?: string;
   type: string;
-  website?: string;
-  logo?: string;
   comptype: string;
   meetingday: string;
   meetingtime: string;
   timelower: number;
   timeupper: number;
+  logo?: string;
+  website?: string;
 }
 
 const clubTypes = ["Academic", "Sports", "Music", "Arts", "Professional", "Affinity", "Other"];

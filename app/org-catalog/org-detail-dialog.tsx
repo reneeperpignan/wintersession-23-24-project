@@ -8,15 +8,37 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import EditOrgDialog from "./edit-org-dialog";
 import { TypographyP } from "@/components/ui/typography";
+import { db } from "@/lib/firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import { useState, type SyntheticEvent } from "react";
 import { type Orgs } from "@/lib/firebase/schema";
 
 interface OrgDetailDialogProps {
+  id: string;
   org: Orgs;
   cardEditsVisible: boolean;
 }
 
-export default function OrgDetailDialog({ org, cardEditsVisible }: OrgDetailDialogProps) {
+export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetailDialogProps) {
+  const router = useRouter();
+
+  const handleDelete = async (id: string, e: SyntheticEvent) => {
+    e.preventDefault();
+    const decRef = doc(db, "orgs", id);
+    await deleteDoc(decRef);
+
+    router.refresh();
+  };
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -54,9 +76,7 @@ export default function OrgDetailDialog({ org, cardEditsVisible }: OrgDetailDial
               <Button
                 id="editButton"
                 variant="outline"
-                onClick={() => {
-                  alert("Edit button clicked");
-                }}
+                onClick={handleEdit}
               >
                 Edit
               </Button>
@@ -65,8 +85,10 @@ export default function OrgDetailDialog({ org, cardEditsVisible }: OrgDetailDial
               <Button
                 id="deleteButton"
                 variant="outline"
-                onClick={() => {
-                  alert("Delete button clicked");
+                onClick={(e: SyntheticEvent) => {
+                  void (async () => {
+                    await handleDelete(id, e);
+                  })();
                 }}
               >
                 Delete
@@ -75,6 +97,7 @@ export default function OrgDetailDialog({ org, cardEditsVisible }: OrgDetailDial
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
+      {isEditing && <EditOrgDialog id={id} org={org} onClose={() => setIsEditing(false)} />}
     </Dialog>
   );
 }

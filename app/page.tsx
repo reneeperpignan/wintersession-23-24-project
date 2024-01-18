@@ -20,21 +20,21 @@ console.log(theme);
 // &:hover {
 //   background-color: ${(props) => theme[props.theme].hover};
 // }
-const Button = styled.button`
-  color: white;
-  padding: 5px 15px;
-  border-radius: 5px;
-  outline: 0;
-  text-transform: uppercase;
-  margin: 10px 0px;
-  cursor: pointer;
-  transition: ease background-color 250ms;
+// const Button = styled.button`
+//   color: white;
+//   padding: 5px 15px;
+//   border-radius: 5px;
+//   outline: 0;
+//   text-transform: uppercase;
+//   margin: 10px 0px;
+//   cursor: pointer;
+//   transition: ease background-color 250ms;
 
-  &:disabled {
-    cursor: default;
-    opacity: 0.7;
-  }
-`;
+//   &:disabled {
+//     cursor: default;
+//     opacity: 0.7;
+//   }
+// `;
 
 // Button.defaultProps = {
 //   theme: "Crimson",

@@ -63,11 +63,6 @@ function Form({ onSubmit }: FormProps) {
       </label>
       <br />
       <label>
-        Email for mailing list:
-        <input type="email" name="mailinglist" value={formData.mailinglist} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
         Type of club:
         <select name="type" value={formData.type} onChange={handleInputChange} required>
           <option value="">Select a type</option>
@@ -95,6 +90,11 @@ function Form({ onSubmit }: FormProps) {
             <option key={type} value={type}>{type}</option>
           ))}
         </select>
+      </label>
+      <br />
+      <label>
+        Link for mail sign-up:
+        <input type="url" name="mailinglist" value={formData.mailinglist} onChange={handleInputChange} />
       </label>
       <br />
       <label>

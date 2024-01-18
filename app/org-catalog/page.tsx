@@ -7,7 +7,7 @@ import OrgCardCatalog from "./org-card";
 import OrgCardComp from "./org-card-comp";
 import OrgCardCurrent from "./org-card-current";
 import OrgDetailDialog from "./org-detail-dialog";
-import {addNewOrgs} from "@/lib/firebase/firestore"
+import { AddNewOrgs } from "@/lib/firebase/firestore"
 
 const MathClub: Orgs = {
   id: "123",
@@ -23,7 +23,7 @@ const MathClub: Orgs = {
   timecommitment: "5 hours per week",
 };
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -37,6 +37,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogClose
 } from "@/components/ui/dialog";
 
 const theme = {
@@ -74,8 +75,28 @@ export default function OrgCatalog() {
   const [formData, setFormData] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
-
   const { user } = useAuthContext();
+
+  // add new form data as an org in firebase --- use effect
+  useEffect(() => {
+    // check that user is signed-in
+    if (user && user != "loading")
+      console.log(`User id: ${user.uid}`);
+
+    // check that formData is not null
+    if (formData) {
+      AddNewOrgs(formData, user)
+      // asynchronously log success and any errors
+        .then(return_object => {
+          console.log(return_object[0]);
+        })
+        .catch(return_object => {
+          console.error(return_object[1]);
+          // Handle error, e.g., show error message to user
+        });
+    }
+  }, [formData, user]); // user will not be a dependency in the future
+
 
   if (!user) {
     // this is a protected route - only users who are signed in can view this route
@@ -90,17 +111,14 @@ export default function OrgCatalog() {
     setIsFormOpen(true);
   };
 
-  const handleSubmit = (data:FormData) => {
+  const handleSubmit = (data: FormData) => {
     console.log(data);
     setIsSubmitted(true);
     setFormData(data);
     setIsDialogOpen(true);
+    // hide form after submit
     setIsFormOpen(false);
-    // add new form data as an org in firebase --- use effect
-    addNewOrgs(data);
-    // Hide form after submit
   };
-
   return (
     <>
       <TypographyH2>Student Organization Catalog</TypographyH2>
@@ -125,6 +143,7 @@ export default function OrgCatalog() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Register new club</DialogTitle>
+              <DialogClose onClick={()=>{setIsFormOpen(false)}}>Cancel</DialogClose>
               <DialogDescription>Information will be added to our database.</DialogDescription>
             </DialogHeader>
             <DialogFooter>

@@ -1,8 +1,7 @@
-import { doc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getFirestore, setDoc, addDoc, updateDoc } from "firebase/firestore";
 import { firebase_app } from "./firebase";
 import { type Profile } from "./schema";
-
-import { type FormData } from "@/app/org-catalog/form";
+import { type User } from "@/node-modules/@firebase/auth/dist/auth-public.d.ts"
 
 export const db = getFirestore(firebase_app);
 
@@ -53,33 +52,37 @@ export async function updateProfile(profile: Profile) {
   return { result, error };
 }
 
-export async function addNewOrgs(formData: FormData) {
+// two arguments: formData for new org as well as the signed-in user as the default director
+export async function AddNewOrgs(formData: FormData, user) {
   // Variable to store the result of the operation
-  const result = null;
+  let result = null;
   // Variable to store any error that occurs during the operation
   let error = null;
 
   try {
-    // Separate the user ID from the profile data; user ID becomes document ID and the rest of the input object becomes the document data
+    const orgsCollectionRef = collection(db, "orgs"); // will generate new id key
     // Set the document with the provided data in the specified collection and ID
-    await setDoc(doc(db, "orgs", "1324242323"), {
+    const docRef = await addDoc(orgsCollectionRef, {
       name: formData.name,
       description : formData.description,
       type : formData.type,
       comptype: formData.comptype,
       mailinglist : formData.mailinglist,
+      meetingday: formData.meetingday,
+      meetingtime: formData.meetingtime,
+      timelower : formData.timelower,
+      timeupper : formData.timeupper,
       website : formData.website,
       logo : formData.logo,
-      timelower : formData.lower,
-      timeupper : formData.upper,
-      directors : ["Pc5DOGpZjqeu0EetlvA17aIZfqO2"],
-      members : ["Pc5DOGpZjqeu0EetlvA17aIZfqO2"]
-    })
+      directors : [user.uid],
+      members : [user.uid]
+    });
+    result = `Document written with ID: ${docRef.id}`;
   } catch (e) {
     // Catch and store any error that occurs during the operation
     error = e;
+    console.error("Error adding document: ", e)
   }
-
   // Return the result and error as an object
   return { result, error };
 }

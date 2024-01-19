@@ -15,6 +15,7 @@ export default function Home() {
   if (!user || user === "loading") {
     return <TypographyP>Loading...</TypographyP>;
   }
+  // console.log(user);
 
   if (!user || user == null) {
     // this is a protected route - only users who are signed in can view this route

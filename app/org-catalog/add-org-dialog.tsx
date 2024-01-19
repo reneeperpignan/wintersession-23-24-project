@@ -121,21 +121,6 @@ export default function AddOrgDialog() {
       website,
     );
     if (added) {
-      setName("");
-      setDescription("");
-      setDirectors([]);
-      setComping([]);
-      setMembers([]);
-      setMailinglist("");
-      setType("");
-      setComptype("");
-      setMeetingday("");
-      setMeetingtime("");
-      setTimelower(0);
-      setTimeupper(0);
-      setLogo("");
-      setWebsite("");
-
       // toast({
       //   title: "Success!",
       //   description: `${name} was added.`,
@@ -178,16 +163,48 @@ export default function AddOrgDialog() {
     setLogo("");
     setWebsite("");
 
-    toast({
-      title: "Data reset",
-    });
+    // toast({
+    //   title: "Data reset",
+    // });
   };
+
+  function handleFormReset() {
+    setName("");
+    setDescription("");
+    setDirectors([]);
+    setComping([]);
+    setMembers([]);
+    setMailinglist("");
+    setType("");
+    setComptype("");
+    setMeetingday("");
+    setMeetingtime("");
+    setTimelower(0);
+    setTimeupper(0);
+    setLogo("");
+    setWebsite("");
+  }
 
   return (
     <div>
+      <ClubAlert
+        name={name}
+        type={type}
+        comptype={comptype}
+        description={description}
+        meetingday={meetingday}
+        meetingtime={meetingtime}
+        logo={logo}
+        website={website}
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+      />
+
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Register Org</Button>
+          <Button variant="outline" onClick={() => void handleFormReset()}>
+            Register Org
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -416,18 +433,6 @@ export default function AddOrgDialog() {
           </form>
         </DialogContent>
       </Dialog>
-      <ClubAlert
-        name={name}
-        type={type}
-        comptype={comptype}
-        description={description}
-        meetingday={meetingday}
-        meetingtime={meetingtime}
-        logo={logo}
-        website={website}
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-      />
     </div>
   );
 }

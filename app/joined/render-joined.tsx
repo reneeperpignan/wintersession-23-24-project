@@ -27,7 +27,7 @@ export default function RenderJoined(userid: UserInfo) {
       setOrgData(orgList);
     });
     return unsub;
-  }, [userid]);
+  }, [userid.uid]);
 
   if (!user) {
     // this is a protected route - only users who are signed in can view this route

@@ -16,7 +16,6 @@ import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
-import { useState } from "react";
 import OrgDetailDialog from "./org-detail-dialog";
 
 // Card for catalog and favorited page
@@ -29,7 +28,7 @@ interface OrgCardProps {
 export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProps) {
   // Calculate the number of members
   const MemberCount: number = organization.members.length;
-  const [disabled] = useState(organization.members.includes(uid) ? true : false);
+  // const [disabled] = useState(organization.members.includes(uid) ? true : false);
 
   console.log("userid from orgcard.tsx: ", uid);
 
@@ -83,7 +82,11 @@ export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProp
 
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button type="button" variant="outline" disabled={disabled}>
+            <Button
+              type="button"
+              variant="outline"
+              // disabled={disabled}
+            >
               Begin Comp
             </Button>
           </AlertDialogTrigger>

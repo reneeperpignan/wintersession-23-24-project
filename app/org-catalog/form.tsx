@@ -1,5 +1,4 @@
-import React from "react";
-
+"use client";
 import { Button } from "@/components/ui/button";
 
 interface FormProps {
@@ -26,20 +25,6 @@ const compTypes = ["Mail sign-up", "Completion comp", "Competitive comp"];
 const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Fridays", "Saturday", "Sunday"];
 
 function AddForm({ onSubmit }: FormProps) {
-  const [formData, setFormData] = React.useState<FormData>({
-    name: "",
-    description: "",
-    mailinglist: "",
-    type: "",
-    website: "",
-    logo: "",
-    comptype: "",
-    meetingday: "",
-    meetingtime: "12:00",
-    timelower: 0,
-    timeupper: 0,
-  });
-
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });

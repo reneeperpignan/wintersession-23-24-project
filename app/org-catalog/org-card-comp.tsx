@@ -68,9 +68,12 @@ export default function OrgCardComp({ orgid, userid, organization }: OrgCardProp
         </div>
       </CardContent>
       <CardFooter>
+        <div>
+          Comp Progress <Progress value={33} /> 33%
+        </div>
+        <br />
         <OrgDetailDialog id={orgid} org={organization} cardEditsVisible={false} />
-        Comp Progress <Progress value={33} /> 33%
-        <OrgDetailDialog id={organization.id} org={organization} cardEditsVisible={false} />
+
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button type="button" variant="outline">

@@ -1,4 +1,15 @@
 "use client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -51,12 +62,15 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
             <TypographyP>
               <b>Description:</b> {org.description}
             </TypographyP>
-            <TypographyP>
+            {/* <TypographyP>
               <b>Directors:</b> {org.directors.reduce((a: string, b: string) => a + ", " + b)}
-            </TypographyP>
-            <TypographyP>
-              <b>Members:</b> {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
-            </TypographyP>
+            </TypographyP> */}
+            {org.members.length > 0 && (
+              <TypographyP>
+                <b>Members:</b>{" "}
+                {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
+              </TypographyP>
+            )}
             <TypographyP>
               <b>Mailing List:</b> <a href={org.mailinglist}>{org.mailinglist}</a>
             </TypographyP>
@@ -78,17 +92,31 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
               </Button>
             )}
             {cardEditsVisible && (
-              <Button
-                id="deleteButton"
-                variant="outline"
-                onClick={(e: SyntheticEvent) => {
-                  void (async () => {
-                    await handleDelete(id, e);
-                  })();
-                }}
-              >
-                Delete
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button type="button" variant="destructive">
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>You really want to delete?</AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={(e: SyntheticEvent) => {
+                        void (async () => {
+                          await handleDelete(id, e);
+                        })();
+                      }}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             )}
           </DialogDescription>
         </DialogHeader>

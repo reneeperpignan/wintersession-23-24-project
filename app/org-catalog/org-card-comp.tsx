@@ -78,9 +78,9 @@ export default function OrgCardComp({ orgid, userid, organization }: OrgCardProp
         </div>
         <div className="flex items-stretch justify-between py-2">
             <div>Comp Progress</div>
-            <div>33%</div>
+            <div>0%</div>
         </div>
-        <Progress value={33} />
+        <Progress value={0} />
           
       </CardContent>
       <CardFooter className=" flex justify-center space-x-4">

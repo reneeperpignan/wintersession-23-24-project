@@ -19,7 +19,7 @@ export default function Comping() {
   return (
     <div>
       <TypographyH2 className="text-Crimson">Comping</TypographyH2>
-
+      <br></br>
       <RenderComp
         uid={user.uid}
         displayName={user.displayName}

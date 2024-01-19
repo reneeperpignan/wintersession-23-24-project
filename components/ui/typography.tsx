@@ -9,7 +9,7 @@ export const TypographyH1 = React.forwardRef<HTMLHeadingElement, ComponentPropsW
 TypographyH1.displayName = "TypographyH1";
 
 export const TypographyH2 = React.forwardRef<HTMLHeadingElement, ComponentPropsWithoutRef<"h2">>(({ className,...props }, ref) => (
-  <h2 ref={ref} className={cn("scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0", className)} {...props}/>
+  <h2 ref={ref} className={cn("scroll-m-20 border-b pt-4 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0", className)} {...props}/>
 ));
 TypographyH2.displayName = "TypographyH2";
 

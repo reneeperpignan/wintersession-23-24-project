@@ -45,29 +45,29 @@ export default function OrgCardCurrent({ orgid, userid, organization }: OrgCardP
   console.log("props from orgcard:", orgid, userid, organization);
 
   return (
-    <Card style={{ width: "300px"}}>
-      <img
-          className="rounded-t-lg"
-          src="/harvard-pic.jpg"
-          style={{ height: "auto"}}
-          alt="logo"
-          width="300"
-          height={0}
-        />
-      <CardHeader style={{ display: "flex"}}>
+    <Card style={{ width: "300px" }}>
+      <Image
+        className="rounded-t-lg"
+        src="/harvard-pic.jpg"
+        style={{ height: "auto" }}
+        alt="logo"
+        width="300"
+        height={0}
+      />
+      <CardHeader style={{ display: "flex" }}>
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
         {organization.description.slice(0, 70).trim() + "..."}
         <div className="space-x-1 pt-1">
-            {organization.timeupper > 0 && (
+          {organization.timeupper > 0 && (
             <Badge variant="outline">
               {organization.timelower}-{organization.timeupper} hrs
             </Badge>
-            )}
-            <Badge variant="outline">{organization.comptype}</Badge>
-            <Badge variant="outline">{organization.type}</Badge>
+          )}
+          <Badge variant="outline">{organization.comptype}</Badge>
+          <Badge variant="outline">{organization.type}</Badge>
         </div>
       </CardContent>
       <CardFooter className=" flex justify-center space-x-4">

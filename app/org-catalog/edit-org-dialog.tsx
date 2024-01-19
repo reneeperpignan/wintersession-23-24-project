@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,14 +62,15 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
       .then(() => {
         console.log("Value of an Existing Document Field has been updated");
         alert("The club is being edited - may take a few moments to update.");
-        router.refresh();
       })
       .catch((error) => {
         console.log(error);
-        alert("There was an error. Please try again.");
+        alert("There was an error. Please try again.")
       });
 
-    onClose();
+      onClose();
+
+    router.refresh();
   };
 
   return (
@@ -222,3 +229,39 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
     </Dialog>
   );
 }
+
+
+/*
+export default function RenderOrgs(uid: UserInfo) {
+  const [orgData, setOrgData] = useState<Orgs[]>([]);
+
+  console.log("user is renfer orgs", uid);
+  // const { profile } = useAuthContext();
+
+  useEffect(() => {
+    const q = query(collection(db, "organizations"));
+
+    const unsub = onSnapshot(q, (snapshot) => {
+      const orgList: Orgs[] = snapshot.docs.map(
+        (doc): Orgs =>
+          ({
+            ...doc.data(),
+            id: doc.id,
+          }) as Orgs,
+      );
+      setOrgData(orgList);
+    });
+    return unsub;
+  }, []);
+
+  return (
+    <div className="flex h-screen w-screen flex-wrap items-center justify-center">
+      {orgData.map((organization: Orgs) => (
+        <div key={organization.id}>
+          <OrgCard orgid={organization.id} uid={uid.uid} organization={organization} />
+        </div>
+      ))}
+    </div>
+  );
+}
+*/

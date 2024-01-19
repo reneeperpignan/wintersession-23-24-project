@@ -6,22 +6,20 @@ export interface Profile {
   biography: string;
 }
 
-// everything must be required
 export interface Orgs {
   id: string;
   name: string;
   description: string;
   directors: string[];
-  comping: string[]; //array of ids
+  comping: string[];
   members: string[];
   mailinglist: string;
-  type: string; //define a type,
+  type: string;
   comptype: string;
-  // think about how we want to do meeting time? two separate entries?
   meetingday: string;
   meetingtime: string;
-  timelower: number; //these are the time commitment lower bound
-  timeupper: number; //time commitment upper bound
+  timelower: number;
+  timeupper: number;
   logo: string;
   website: string;
 }

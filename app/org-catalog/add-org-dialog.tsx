@@ -130,23 +130,7 @@ export default function AddOrgDialog() {
     }
   };
 
-  // const [isSubmitted, setIsSubmitted] = useState(false);
-  // const [formData, setFormData] = useState<Orgs[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  // console.log(isSubmitted);
-  // const handleClick = () => {
-  //   console.log("register club clicked");
-  //   setIsFormOpen(true);
-  // };
-
-  // const handleSubmit = (data: Orgs) => {
-  //   console.log(data);
-  //   setIsSubmitted(true);
-  //   // setIsDialogOpen(true);
-  //   setIsFormOpen(false);
-  //   // Hide form after submit
-  // };
 
   const handleReset = (e: SyntheticEvent) => {
     e.preventDefault();

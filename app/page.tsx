@@ -1,34 +1,12 @@
 "use client";
 import { TypographyH2, TypographyP } from "@/components/ui/typography";
-import { db } from "@/lib/firebase/firestore";
-import { type Orgs } from "@/lib/firebase/schema";
-import { collection, onSnapshot, query } from "firebase/firestore";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useAuthContext } from "./(context)/auth-context";
 import RenderComp from "./comping/render-comp";
 import RenderJoined from "./joined/render-joined";
 
 export default function Home() {
   const { user } = useAuthContext();
-
-  const [orgData, setOrgData] = useState<Orgs[]>([]);
-
-  useEffect(() => {
-    const q = query(collection(db, "orgs"));
-    //where("members", "array-contains", userid.uid)
-    const unsub = onSnapshot(q, (snapshot) => {
-      const orgList: Orgs[] = snapshot.docs.map(
-        (doc): Orgs =>
-          ({
-            ...doc.data(),
-            id: doc.id,
-          }) as Orgs,
-      );
-      setOrgData(orgList);
-    });
-    return unsub;
-  }, []);
 
   if (!user) {
     // this is a protected route - only users who are signed in can view this route

@@ -15,11 +15,11 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { TypographyP } from "@/components/ui/typography";
+import Image from "next/image";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { deleteDoc, doc } from "firebase/firestore";
@@ -56,70 +56,74 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
         <Button variant="outline">Learn More</Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{org.name}</DialogTitle>
-          <DialogDescription>
+        <div className="flex">
+          <DialogTitle className="text-BrightRed text-4xl">{org.name}</DialogTitle>
+          {org.logo && <Image src={org.logo} alt={org.name + " logo"}></Image>}
+        </div>
+        <DialogDescription className="text-Gray">
+          <TypographyP>
+            <b>Description:</b> {org.description}
+          </TypographyP>
+          {/* <TypographyP>
+            <b>Directors:</b> {org.directors.reduce((a: string, b: string) => a + ", " + b)}
+          </TypographyP> */}
+          {org.members.length > 0 && (
             <TypographyP>
-              <b>Description:</b> {org.description}
+              <b>Members:</b>{" "}
+              {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
             </TypographyP>
-            {/* <TypographyP>
-              <b>Directors:</b> {org.directors.reduce((a: string, b: string) => a + ", " + b)}
-            </TypographyP> */}
-            {org.members.length > 0 && (
-              <TypographyP>
-                <b>Members:</b>{" "}
-                {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
-              </TypographyP>
-            )}
-            <TypographyP>
-              <b>Mailing List:</b> <a href={org.mailinglist}>{org.mailinglist}</a>
-            </TypographyP>
-            <TypographyP>
-              <b>Type:</b> {org.type}
-            </TypographyP>
-            <TypographyP>
-              <b>Comp Type:</b> {org.comptype}
-            </TypographyP>
-            <TypographyP>
-              <b>Meeting Time:</b> {org.meetingtime}
-            </TypographyP>
-            <TypographyP>
-              <b>Time Commitment:</b> {org.timelower}-{org.timeupper} hours per week
-            </TypographyP>
-            {cardEditsVisible && (
-              <Button id="editButton" variant="outline" onClick={handleEdit}>
-                Edit
-              </Button>
-            )}
-            {cardEditsVisible && (
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button type="button" variant="destructive">
+          )}
+          <TypographyP>
+            <b>Mailing List:</b> <a href={org.mailinglist}>{org.mailinglist}</a>
+          </TypographyP>
+          <TypographyP>
+            <b>Type:</b> {org.type}
+          </TypographyP>
+          <TypographyP>
+            <b>Comp Type:</b> {org.comptype}
+          </TypographyP>
+          <TypographyP>
+            <b>Meeting Time:</b> {org.meetingtime}
+          </TypographyP>
+          <TypographyP>
+            <b>Time Commitment:</b> {org.timelower}-{org.timeupper} hours per week
+          </TypographyP>
+          <TypographyP>
+            <b>Website:</b> <a href={org.website}>{org.website}</a>
+          </TypographyP>
+          {cardEditsVisible && (
+            <Button id="editButton" variant="outline" onClick={handleEdit}>
+              Edit
+            </Button>
+          )}
+          {cardEditsVisible && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type="button" className="bg-BrightRed">
+                  Delete
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>Do you really want to delete this club?</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={(e: SyntheticEvent) => {
+                      void (async () => {
+                        await handleDelete(id, e);
+                      })();
+                    }}
+                  >
                     Delete
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                    <AlertDialogDescription>Do you really want to delete this club?</AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={(e: SyntheticEvent) => {
-                        void (async () => {
-                          await handleDelete(id, e);
-                        })();
-                      }}
-                    >
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
-          </DialogDescription>
-        </DialogHeader>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </DialogDescription>
       </DialogContent>
       {isEditing && <EditOrgDialog id={id} org={org} onClose={() => setIsEditing(false)} />}
     </Dialog>

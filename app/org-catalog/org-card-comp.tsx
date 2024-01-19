@@ -93,7 +93,7 @@ export default function OrgCardComp({ orgid, userid, organization }: OrgCardProp
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>You really want to leave?</AlertDialogDescription>
+              <AlertDialogDescription>You are finished comping?</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>

@@ -18,7 +18,7 @@ export default function Joined() {
 
   return (
     <div>
-      <TypographyH2>Joined</TypographyH2>
+      <TypographyH2 className="text-Crimson">Joined</TypographyH2>
       <RenderJoined
         uid={user.uid}
         displayName={user.displayName}

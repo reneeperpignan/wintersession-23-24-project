@@ -12,24 +12,26 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Toggle } from "@/components/ui/toggle";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import Image from "next/image";
+import { useState } from "react";
 import OrgDetailDialog from "./org-detail-dialog";
 
 // Card for catalog and favorited page
 interface OrgCardProps {
   organization: Orgs;
-  userid: string;
+  uid: string;
   orgid: string;
 }
 
-export default function OrgCardCatalog({ orgid, userid, organization }: OrgCardProps) {
+export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProps) {
   // Calculate the number of members
   const MemberCount: number = organization.members.length;
+  const [disabled] = useState(organization.members.includes(uid) ? true : false);
 
-  console.log("userid from orgcard.tsx: ", userid);
+  console.log("userid from orgcard.tsx: ", uid);
 
   const handleComp = async () => {
     // e.preventDefault();
@@ -39,7 +41,7 @@ export default function OrgCardCatalog({ orgid, userid, organization }: OrgCardP
     //user.uid is nothing...??
 
     await updateDoc(docRef, {
-      comping: arrayUnion(userid),
+      comping: arrayUnion(uid),
     });
 
     alert("added to comping");
@@ -52,12 +54,16 @@ export default function OrgCardCatalog({ orgid, userid, organization }: OrgCardP
 
   // Can make a flex box to create boundaries of card
   return (
-    <Card style={{ width: "200px" }}>
+    <Card style={{ width: "300px", height: "400px" }}>
       <CardHeader style={{ display: "flex", alignItems: "center" }}>
-        <img src="/harvard-pic.jpg" style={{ width: "150px", marginRight: "10px" }} />
-        <Toggle style={{ width: "50px" }}>&#9734;</Toggle>
+        <Image
+          src="/harvard-pic.jpg"
+          style={{ height: "auto", marginRight: "10px" }}
+          alt="logo"
+          width="250"
+          height={0}
+        />
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
-        <CardTitle>{organization.name}</CardTitle>
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -72,13 +78,13 @@ export default function OrgCardCatalog({ orgid, userid, organization }: OrgCardP
           <Badge variant="outline">{organization.type}</Badge>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className=" flex justify-center space-x-4">
         <OrgDetailDialog id={orgid} org={organization} cardEditsVisible={true} />
 
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button type="button" variant="outline">
-              beginComp
+            <Button type="button" variant="outline" disabled={disabled}>
+              Begin Comp
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -96,22 +102,3 @@ export default function OrgCardCatalog({ orgid, userid, organization }: OrgCardP
     </Card>
   );
 }
-
-// const clubTypes = ["Academic", "Sports", "Music", "Arts", "Professional", "Affinity", "Other"];
-// const compTypes = ["Mail sign-up", "Completion comp", "Competitive comp"];
-// const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Fridays", "Saturday", "Sunday"];
-
-// function Form({ onSubmit }: FormProps) {
-//   const [formData, setFormData] = React.useState<FormData>({
-//     name: '',
-//     description: '',
-//     mailingList: '',
-//     clubType: '',
-//     website: '',
-//     logo: undefined,
-//     compType: '',
-//     meetingDay: '',
-//     meetingTime: '12:00',
-//     timeLower: 0,
-//     timeUpper: 0
-//   });

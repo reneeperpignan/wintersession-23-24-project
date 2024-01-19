@@ -13,10 +13,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Toggle } from "@/components/ui/toggle";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import Image from "next/image";
 import OrgDetailDialog from "./org-detail-dialog";
 
 interface OrgCardProps {
@@ -52,9 +52,15 @@ export default function OrgCardComp({ orgid, userid, organization }: OrgCardProp
   // Calculate the number of members
   const MemberCount = organization.members.length;
   return (
-    <Card>
-      <CardHeader>
-        <Toggle>&#9734;</Toggle>
+    <Card style={{ width: "300px", height: "450px" }}>
+      <CardHeader style={{ display: "flex", alignItems: "center" }}>
+        <Image
+          src="/harvard-pic.jpg"
+          style={{ height: "auto", marginRight: "10px" }}
+          alt="logo"
+          width="250"
+          height={0}
+        />
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
@@ -69,12 +75,12 @@ export default function OrgCardComp({ orgid, userid, organization }: OrgCardProp
           <Badge variant="outline">{organization.comptype}</Badge>
           <Badge variant="outline">{organization.type}</Badge>
         </div>
-      </CardContent>
-      <CardFooter>
         <div>
           Comp Progress <Progress value={33} /> 33%
         </div>
-        <br />
+      </CardContent>
+
+      <CardFooter className=" flex justify-center space-x-4">
         <OrgDetailDialog id={orgid} org={organization} cardEditsVisible={false} />
 
         <AlertDialog>

@@ -7,7 +7,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../(context)/auth-context";
-import OrgCardCurrent from "../org-catalog/org-card-comp";
+import OrgCardCurrent from "../org-catalog/org-card-current";
 
 export default function RenderJoined(userid: UserInfo) {
   const { user } = useAuthContext();
@@ -40,7 +40,7 @@ export default function RenderJoined(userid: UserInfo) {
 
   return (
     <div>
-      <div className="flex h-screen w-screen flex-wrap items-center justify-center">
+      <div className="top-4 flex w-screen flex-wrap items-center justify-center space-x-4 space-y-4">
         {orgData.map((organization: Orgs) => (
           <div key={organization.id}>
             <OrgCardCurrent orgid={organization.id} userid={user.uid} organization={organization} />

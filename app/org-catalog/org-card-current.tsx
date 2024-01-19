@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Toggle } from "@/components/ui/toggle";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
+import Image from "next/image";
 import OrgDetailDialog from "./org-detail-dialog";
 
 interface OrgCardProps {
@@ -41,14 +41,20 @@ export default function OrgCardCurrent({ orgid, userid, organization }: OrgCardP
   };
 
   // Calculate the number of members
-  // const MemberCount : number = organization.members.count;
+  const MemberCount: number = organization.members.length;
   console.log("props from orgcard:", orgid, userid, organization);
 
   return (
-    <Card>
-      <CardHeader>
-        <Toggle>&#9734;</Toggle>
-        {/* <CardDescription>{`${MemberCount} Members`}</CardDescription> */}
+    <Card style={{ width: "300px", height: "400px" }}>
+      <CardHeader style={{ display: "flex", alignItems: "center" }}>
+        <Image
+          src="/harvard-pic.jpg"
+          style={{ height: "auto", marginRight: "10px" }}
+          alt="logo"
+          width="250"
+          height={0}
+        />
+        <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -63,7 +69,7 @@ export default function OrgCardCurrent({ orgid, userid, organization }: OrgCardP
           <Badge variant="outline">{organization.type}</Badge>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className=" flex justify-center space-x-4">
         <OrgDetailDialog id={organization.id} org={organization} cardEditsVisible={false} />
 
         <AlertDialog>

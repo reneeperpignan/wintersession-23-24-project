@@ -40,7 +40,7 @@ export default function RenderJoined(userid: UserInfo) {
 
   return (
     <div>
-      <div className="top-4 flex w-screen flex-wrap items-center justify-center space-x-4 space-y-4">
+      <div className="top-4 flex w-screen flex-wrap items-center justify-left space-x-4 space-y-4">
         {orgData.map((organization: Orgs) => (
           <div key={organization.id}>
             <OrgCardCurrent orgid={organization.id} userid={user.uid} organization={organization} />

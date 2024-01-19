@@ -52,34 +52,37 @@ export default function OrgCardComp({ orgid, userid, organization }: OrgCardProp
   // Calculate the number of members
   const MemberCount = organization.members.length;
   return (
-    <Card style={{ width: "300px", height: "450px" }}>
-      <CardHeader style={{ display: "flex", alignItems: "center" }}>
-        <Image
+    <Card style={{ width: "300px"}}>
+      <img
+          className="rounded-t-lg"
           src="/harvard-pic.jpg"
-          style={{ height: "auto", marginRight: "10px" }}
+          style={{ height: "auto"}}
           alt="logo"
-          width="250"
+          width="300"
           height={0}
         />
+      <CardHeader style={{ display: "flex"}}>
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        {organization.description.slice(0, 150).trim() + "..."}
-        <div>
-          {organization.timeupper > 0 && (
+        {organization.description.slice(0, 70).trim() + "..."}
+        <div className="space-x-1">
+            {organization.timeupper > 0 && (
             <Badge variant="outline">
-              {organization.timelower}-{organization.timeupper}hrs
+              {organization.timelower}-{organization.timeupper} hrs
             </Badge>
-          )}
-          <Badge variant="outline">{organization.comptype}</Badge>
-          <Badge variant="outline">{organization.type}</Badge>
+            )}
+            <Badge variant="outline">{organization.comptype}</Badge>
+            <Badge variant="outline">{organization.type}</Badge>
         </div>
-        <div>
-          Comp Progress <Progress value={33} /> 33%
+        <div className="flex items-stretch justify-between py-2">
+            <div>Comp Progress</div>
+            <div>33%</div>
         </div>
+        <Progress value={33} />
+          
       </CardContent>
-
       <CardFooter className=" flex justify-center space-x-4">
         <OrgDetailDialog id={orgid} org={organization} cardEditsVisible={false} />
 

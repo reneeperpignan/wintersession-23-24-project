@@ -19,6 +19,7 @@ export default function Joined() {
   return (
     <div>
       <TypographyH2>Joined</TypographyH2>
+      <br></br>
       <RenderJoined
         uid={user.uid}
         displayName={user.displayName}

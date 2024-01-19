@@ -54,8 +54,9 @@ export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProp
 
   // Can make a flex box to create boundaries of card
   return (
-    <Card style={{ width: "300px", height: "400px"}}>
-      <Image
+    <Card style={{ width: "300px"}}>
+      <img
+          className="rounded-t-lg"
           src="/harvard-pic.jpg"
           style={{ height: "auto"}}
           alt="logo"
@@ -67,8 +68,8 @@ export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProp
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        {organization.description.slice(0, 150).trim() + "..."}
-        <div>
+        {organization.description.slice(0, 70).trim() + "..."}
+        <div className="space-x-1 pt-1">
             {organization.timeupper > 0 && (
             <Badge variant="outline">
               {organization.timelower}-{organization.timeupper} hrs
@@ -79,6 +80,7 @@ export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProp
         </div>
       </CardContent>
       <CardFooter className=" flex justify-center space-x-4">
+        {/* <br></br> */}
         <OrgDetailDialog id={orgid} org={organization} cardEditsVisible={true} />
 
         <AlertDialog>

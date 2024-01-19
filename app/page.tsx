@@ -42,7 +42,7 @@ export default function Home() {
         {user.email && <TypographyP>You are logged in as {user.email}</TypographyP>}
       </div>
       <div className="items-left">
-        <TypographyH2>My Clubs</TypographyH2>
+        <TypographyH2 className="text-Crimson">My Clubs</TypographyH2>
         <br />
 
         <RenderJoined
@@ -54,7 +54,7 @@ export default function Home() {
           providerId=""
         />
 
-        <TypographyH2>Clubs currently comping</TypographyH2>
+        <TypographyH2 className="text-Crimson">Clubs currently comping</TypographyH2>
         <br />
 
         <RenderComp

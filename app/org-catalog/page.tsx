@@ -42,17 +42,17 @@ export default function OrgCatalog() {
   return (
     <>
       <TypographyH2 className="flex items-center justify-between">
-        <div>Student Organization Catalog </div>
-        <div><AddOrgDialog/></div>
+        <div className="text-Crimson">Student Organization Catalog </div>
+        <div>
+          <AddOrgDialog />
+        </div>
       </TypographyH2>
       <TypographyP>
         Organizations offered by the College. {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
       </TypographyP>
 
-      
-
       {/* <RenderOrgs uid={user.uid} /> */}
-      <div className="flex w-screen flex-wrap items-start justify-left gap-x-4 gap-y-4">
+      <div className="justify-left flex w-screen flex-wrap items-start gap-x-4 gap-y-4">
         {orgData.map((organization: Orgs) => (
           <div key={organization.id}>
             <OrgCardCatalog orgid={organization.id} uid={user.uid} organization={organization} />

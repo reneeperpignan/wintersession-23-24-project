@@ -55,7 +55,7 @@ export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProp
     <Card style={{ width: "300px" }}>
       <img
         className="rounded-t-lg"
-        src={"/harvard-pic.jpg"}
+        src={organization.logo}
         style={{ height: "auto" }}
         alt="logo"
         width="300"

@@ -47,7 +47,7 @@ export default function OrgCardCurrent({ orgid, userid, organization }: OrgCardP
     <Card style={{ width: "300px" }}>
       <img
         className="rounded-t-lg"
-        src="/harvard-pic.jpg"
+        src={organization.logo}
         style={{ height: "auto" }}
         alt="logo"
         width="300"

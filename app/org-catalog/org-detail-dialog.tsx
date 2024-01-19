@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -55,51 +54,73 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
       <DialogTrigger asChild>
         <Button variant="outline">Learn More</Button>
       </DialogTrigger>
-      <DialogContent>
-        <div className="flex">
-          <DialogTitle className="text-BrightRed text-4xl">{org.name}</DialogTitle>
-          {org.logo && <Image src={org.logo} alt={org.name + " logo"}></Image>}
+      <DialogContent className="max-w-[800px]">
+        <div className="flex items-center justify-between gap-4">
+          <DialogTitle className="text-BrightRed text-2xl">{org.name}</DialogTitle>
+          <Image
+            className=""
+            src="/harvard-pic.jpg"
+            style={{ height: "auto", marginRight: "10px" }}
+            alt="logo"
+            width="100"
+            height={0}
+          />
         </div>
-        <DialogDescription className="text-Gray">
+
+        <div>
           <TypographyP>
             <b>Description:</b> {org.description}
           </TypographyP>
+
           {/* <TypographyP>
             <b>Directors:</b> {org.directors.reduce((a: string, b: string) => a + ", " + b)}
           </TypographyP> */}
-          {org.members.length > 0 && (
+
+          {/*org.members.length > 0 && (
             <TypographyP>
               <b>Members:</b>{" "}
               {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
             </TypographyP>
+          )*/}
+
+          {org.mailinglist && (
+            <TypographyP>
+              <b>Mailing List:</b> <a href={"mailto:" + org.mailinglist}>{org.mailinglist}</a>
+            </TypographyP>
           )}
-          <TypographyP>
-            <b>Mailing List:</b> <a href={org.mailinglist}>{org.mailinglist}</a>
-          </TypographyP>
+
           <TypographyP>
             <b>Type:</b> {org.type}
           </TypographyP>
+
           <TypographyP>
             <b>Comp Type:</b> {org.comptype}
           </TypographyP>
+
           <TypographyP>
-            <b>Meeting Time:</b> {org.meetingtime}
+            <b>Meeting Day and Time:</b> {org.meetingday} {org.meetingtime}
           </TypographyP>
+
           <TypographyP>
             <b>Time Commitment:</b> {org.timelower}-{org.timeupper} hours per week
           </TypographyP>
-          <TypographyP>
-            <b>Website:</b> <a href={org.website}>{org.website}</a>
-          </TypographyP>
-          {cardEditsVisible && (
-            <Button id="editButton" variant="outline" onClick={handleEdit}>
+
+          {org.website && (
+            <TypographyP>
+              <b>Website:</b> <a href={org.website}>{org.website}</a>
+            </TypographyP>
+          )}
+        </div>
+
+        {cardEditsVisible && (
+          <div className="flex">
+            <Button id="editButton" className="ml-1 mr-1 flex-auto" onClick={handleEdit}>
               Edit
             </Button>
-          )}
-          {cardEditsVisible && (
+
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button type="button" className="bg-BrightRed">
+                <Button type="button" className="ml-1 mr-1 flex-auto bg-BrightRed text-white" variant="secondary">
                   Delete
                 </Button>
               </AlertDialogTrigger>
@@ -122,9 +143,10 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          )}
-        </DialogDescription>
+          </div>
+        )}
       </DialogContent>
+
       {isEditing && <EditOrgDialog id={id} org={org} onClose={() => setIsEditing(false)} />}
     </Dialog>
   );

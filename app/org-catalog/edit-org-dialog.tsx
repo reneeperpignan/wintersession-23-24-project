@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { TypographyP } from "@/components/ui/typography";
 import { Textarea } from "@/components/ui/textarea";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
@@ -87,7 +86,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogTrigger asChild></DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] text-Gray">
+      <DialogContent className="sm:max-w-[800px]">
         <DialogTitle className="text-BrightRed">Edit {org ? org.name : ""}</DialogTitle>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -236,7 +235,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
                 value={timelower}
                 onChange={(e) => setTimelower(Number(e.target.value))}
               />
-              <TypographyP> to </TypographyP>
+              <Label className="font-normal"> to </Label>
               <Input
                 type="number"
                 className="w-16"
@@ -244,7 +243,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
                 value={timeupper}
                 onChange={(e) => setTimeupper(Number(e.target.value))}
               />
-              <TypographyP> hours per week</TypographyP>
+              <Label className="font-normal"> hours per week</Label>
             </div>
           </div>
 
@@ -292,7 +291,7 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
           <Button type="button" className="ml-1 mr-1 flex-auto" onClick={() => void onSubmit()}>
             Update
           </Button>
-          <Button type="button" className="ml-1 mr-1 flex-auto bg-BrightRed" variant="secondary" onClick={onClose}>
+          <Button type="button" className="ml-1 mr-1 flex-auto bg-BrightRed text-white" variant="secondary" onClick={onClose}>
             Cancel
           </Button>
         </div>

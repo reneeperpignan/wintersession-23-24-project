@@ -16,7 +16,6 @@ import { Progress } from "@/components/ui/progress";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import Image from "next/image";
 import OrgDetailDialog from "./org-detail-dialog";
 
 interface OrgCardProps {
@@ -53,9 +52,9 @@ export default function OrgCardComp({ orgid, userid, organization }: OrgCardProp
   const MemberCount = organization.members.length;
   return (
     <Card style={{ width: "300px" }}>
-      <Image
+      <img
         className="rounded-t-lg"
-        src="/harvard-pic.jpg"
+        src={organization.logo}
         style={{ height: "auto" }}
         alt="logo"
         width="300"

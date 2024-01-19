@@ -101,7 +101,7 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                    <AlertDialogDescription>You really want to delete?</AlertDialogDescription>
+                    <AlertDialogDescription>Do you really want to delete this club?</AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>

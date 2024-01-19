@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { doc, updateDoc } from "firebase/firestore";
@@ -38,6 +39,11 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
   const [comptype, setComptype] = useState("");
   const [meetingday, setMeetingday] = useState("");
   const [meetingtime, setMeetingtime] = useState("");
+  const [timelower, setTimelower] = useState(0);
+  const [timeupper, setTimeupper] = useState(0);
+  const [mailinglist, setMailinglist] = useState("");
+  const [logo, setLogo] = useState("");
+  const [website, setWebsite] = useState("");
 
   //more intuitive way:
   // const [open, setOpen] = useState(true);
@@ -79,13 +85,12 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
       <DialogHeader>
         <DialogTitle>Edit {org ? org.name : ""}</DialogTitle>
       </DialogHeader>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[600px]">
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-left">
-              Name:
+            <Label htmlFor="name" className="text-right">
+              Name
             </Label>
-
             <Input
               className="col-span-3"
               type="text"
@@ -96,12 +101,11 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="description" className="text-left">
-              Description:
+            <Label htmlFor="description" className="text-right">
+              Description
             </Label>
-            <Input
-              className="col-span-3"
-              type="text"
+            <Textarea
+              className="resize=none col-span-3"
               id="description"
               placeholder={org.description}
               onChange={(e) => setDescription(e.target.value)}
@@ -205,8 +209,8 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="meetingtime" className="text-left">
-              Meeting Time:
+            <Label htmlFor="meetingtime" className="text-right">
+              Meeting Time
             </Label>
             <Input
               className="col-span-3"
@@ -216,6 +220,73 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
               onChange={(e) => setMeetingtime(e.target.value)}
             />
           </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="meetingtime" className="text-right col-span-1">
+              Time Commitment
+            </Label>
+            <div className="col-span-3 flex">
+              <Input
+                type="number"
+                className="w-20"
+                id="timelower"
+                value={timelower}
+                onChange={(e) => setTimelower(Number(e.target.value))}
+              />
+              <Label className="align-center">-</Label>
+              <Input
+                type="number"
+                className="w-20"
+                id="timeupper"
+                value={timeupper}
+                onChange={(e) => setTimeupper(Number(e.target.value))}
+              />
+              <Label>hours per week</Label>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="mailinglist" className="text-right">
+              Mailing List
+            </Label>
+            <Input
+              type="text"
+              id="mailinglist"
+              placeholder={org.mailinglist}
+              className="col-span-3"
+              value={mailinglist}
+              onChange={(e) => setMailinglist(e.target.value)}
+            />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="logo" className="text-right">
+              Logo (Image URL)
+            </Label>
+            <Input
+              type="text"
+              id="logo"
+              placeholder={org.logo}
+              className="col-span-3"
+              value={logo}
+              onChange={(e) => setLogo(e.target.value)}
+            />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="website" className="text-right">
+              Website (URL)
+            </Label>
+            <Input
+              type="text"
+              id="website"
+              placeholder={org.website}
+              className="col-span-3"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </div>
+
         </div>
         <div className="flex">
           <Button type="button" className="ml-1 mr-1 flex-auto" onClick={() => void onSubmit()}>
@@ -230,38 +301,3 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
   );
 }
 
-
-/*
-export default function RenderOrgs(uid: UserInfo) {
-  const [orgData, setOrgData] = useState<Orgs[]>([]);
-
-  console.log("user is renfer orgs", uid);
-  // const { profile } = useAuthContext();
-
-  useEffect(() => {
-    const q = query(collection(db, "organizations"));
-
-    const unsub = onSnapshot(q, (snapshot) => {
-      const orgList: Orgs[] = snapshot.docs.map(
-        (doc): Orgs =>
-          ({
-            ...doc.data(),
-            id: doc.id,
-          }) as Orgs,
-      );
-      setOrgData(orgList);
-    });
-    return unsub;
-  }, []);
-
-  return (
-    <div className="flex h-screen w-screen flex-wrap items-center justify-center">
-      {orgData.map((organization: Orgs) => (
-        <div key={organization.id}>
-          <OrgCard orgid={organization.id} uid={uid.uid} organization={organization} />
-        </div>
-      ))}
-    </div>
-  );
-}
-*/

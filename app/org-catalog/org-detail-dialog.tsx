@@ -14,12 +14,11 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { TypographyP } from "@/components/ui/typography";
+import Image from "next/image";
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { deleteDoc, doc } from "firebase/firestore";
@@ -55,72 +54,99 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
       <DialogTrigger asChild>
         <Button variant="outline">Learn More</Button>
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{org.name}</DialogTitle>
-          <DialogDescription>
+      <DialogContent className="max-w-[800px]">
+        <div className="flex items-center justify-between gap-4">
+          <DialogTitle className="text-BrightRed text-2xl">{org.name}</DialogTitle>
+          <Image
+            className=""
+            src="/harvard-pic.jpg"
+            style={{ height: "auto", marginRight: "10px" }}
+            alt="logo"
+            width="100"
+            height={0}
+          />
+        </div>
+
+        <div>
+          <TypographyP>
+            <b>Description:</b> {org.description}
+          </TypographyP>
+
+          {/* <TypographyP>
+            <b>Directors:</b> {org.directors.reduce((a: string, b: string) => a + ", " + b)}
+          </TypographyP> */}
+
+          {/*org.members.length > 0 && (
             <TypographyP>
-              <b>Description:</b> {org.description}
+              <b>Members:</b>{" "}
+              {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
             </TypographyP>
-            {/* <TypographyP>
-              <b>Directors:</b> {org.directors.reduce((a: string, b: string) => a + ", " + b)}
-            </TypographyP> */}
-            {org.members.length > 0 && (
-              <TypographyP>
-                <b>Members:</b>{" "}
-                {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
-              </TypographyP>
-            )}
+          )*/}
+
+          {org.mailinglist && (
             <TypographyP>
-              <b>Mailing List:</b> <a href={org.mailinglist}>{org.mailinglist}</a>
+              <b>Mailing List:</b> <a href={"mailto:" + org.mailinglist}>{org.mailinglist}</a>
             </TypographyP>
+          )}
+
+          <TypographyP>
+            <b>Type:</b> {org.type}
+          </TypographyP>
+
+          <TypographyP>
+            <b>Comp Type:</b> {org.comptype}
+          </TypographyP>
+
+          <TypographyP>
+            <b>Meeting Day and Time:</b> {org.meetingday} {org.meetingtime}
+          </TypographyP>
+
+          <TypographyP>
+            <b>Time Commitment:</b> {org.timelower}-{org.timeupper} hours per week
+          </TypographyP>
+
+          {org.website && (
             <TypographyP>
-              <b>Type:</b> {org.type}
+              <b>Website:</b> <a href={org.website}>{org.website}</a>
             </TypographyP>
-            <TypographyP>
-              <b>Comp Type:</b> {org.comptype}
-            </TypographyP>
-            <TypographyP>
-              <b>Meeting Time:</b> {org.meetingtime}
-            </TypographyP>
-            <TypographyP>
-              <b>Time Commitment:</b> {org.timelower}-{org.timeupper} hours per week
-            </TypographyP>
-            {cardEditsVisible && (
-              <Button id="editButton" variant="outline" onClick={handleEdit}>
-                Edit
-              </Button>
-            )}
-            {cardEditsVisible && (
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button type="button" variant="destructive">
+          )}
+        </div>
+
+        {cardEditsVisible && (
+          <div className="flex">
+            <Button id="editButton" className="ml-1 mr-1 flex-auto" onClick={handleEdit}>
+              Edit
+            </Button>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type="button" className="ml-1 mr-1 flex-auto bg-BrightRed text-white" variant="secondary">
+                  Delete
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>Do you really want to delete this club?</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={(e: SyntheticEvent) => {
+                      void (async () => {
+                        await handleDelete(id, e);
+                      })();
+                    }}
+                  >
                     Delete
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                    <AlertDialogDescription>You really want to delete?</AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={(e: SyntheticEvent) => {
-                        void (async () => {
-                          await handleDelete(id, e);
-                        })();
-                      }}
-                    >
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
-          </DialogDescription>
-        </DialogHeader>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        )}
       </DialogContent>
+
       {isEditing && <EditOrgDialog id={id} org={org} onClose={() => setIsEditing(false)} />}
     </Dialog>
   );

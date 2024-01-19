@@ -15,7 +15,6 @@ import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
-import Image from "next/image";
 import OrgDetailDialog from "./org-detail-dialog";
 
 interface OrgCardProps {
@@ -46,7 +45,7 @@ export default function OrgCardCurrent({ orgid, userid, organization }: OrgCardP
 
   return (
     <Card style={{ width: "300px" }}>
-      <Image
+      <img
         className="rounded-t-lg"
         src="/harvard-pic.jpg"
         style={{ height: "auto" }}

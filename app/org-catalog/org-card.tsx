@@ -15,7 +15,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import Image from "next/image";
 import OrgDetailDialog from "./org-detail-dialog";
 
 // Card for catalog and favorited page
@@ -54,7 +53,7 @@ export default function OrgCardCatalog({ orgid, uid, organization }: OrgCardProp
   // Can make a flex box to create boundaries of card
   return (
     <Card style={{ width: "300px" }}>
-      <Image
+      <img
         className="rounded-t-lg"
         src={"/harvard-pic.jpg"}
         style={{ height: "auto" }}

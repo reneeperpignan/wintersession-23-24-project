@@ -41,7 +41,7 @@ export default function OrgCatalog() {
 
   return (
     <>
-      <TypographyH2 className="flex items-stretch justify-between">
+      <TypographyH2 className="flex items-center justify-between">
         <div>Student Organization Catalog </div>
         <div><AddOrgDialog/></div>
       </TypographyH2>

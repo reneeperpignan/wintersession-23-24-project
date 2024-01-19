@@ -50,11 +50,14 @@ export default function OrgCardCatalog({ orgid, userid, organization }: OrgCardP
     // });
   };
 
+  // Can make a flex box to create boundaries of card
   return (
-    <Card>
-      <CardHeader>
-        <Toggle>&#9734;</Toggle>
+    <Card style={{ width: "200px" }}>
+      <CardHeader style={{ display: "flex", alignItems: "center" }}>
+        <img src="/harvard-pic.jpg" style={{ width: "150px", marginRight: "10px" }} />
+        <Toggle style={{ width: "50px" }}>&#9734;</Toggle>
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
+        <CardTitle>{organization.name}</CardTitle>
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>

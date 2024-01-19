@@ -12,6 +12,7 @@ export interface Orgs {
   name: string;
   description: string;
   directors: string[];
+  comping: string[]; //array of ids
   members: string[];
   mailinglist: string;
   type: string; //define a type,

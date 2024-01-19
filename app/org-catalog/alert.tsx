@@ -1,17 +1,22 @@
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
+import { type Orgs } from "@/lib/firebase/schema";
+import Image from "next/image";
 
+interface ClubAlertProps {
+  formData: Orgs;
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-function ClubAlert({ formData, isOpen, onClose }) {
+function ClubAlert({ formData, isOpen, onClose }: ClubAlertProps) {
   return (
     <AlertDialog open={isOpen}>
       <AlertDialogContent>
@@ -19,10 +24,15 @@ function ClubAlert({ formData, isOpen, onClose }) {
           <AlertDialogTitle>You have successfully registered {formData.name}</AlertDialogTitle>
           <AlertDialogDescription>Details:</AlertDialogDescription>
         </AlertDialogHeader>
-        <div>{formData.type}, {formData.comptype}</div>
-        <div>{formData.description}</div>
-        <div>Meeting time: {formData.meetingday}, {formData.meetingtime}</div>
-        {formData.logo && <img src={formData.logo} alt="Club Logo"/>}
+        <div>
+          {formData.type ? formData.type : ""}, {formData.comptype ? formData.comptype : ""}
+        </div>
+        <div>{formData.description ? formData.description : ""}</div>
+        <div>
+          Meeting time: {formData.meetingday ? formData.meetingday : "tbd"},{" "}
+          {formData.meetingtime ? formData.meetingtime : ""}
+        </div>
+        {formData.logo && <Image src={formData.logo} alt="Club Logo" />}
         {formData.website && <a href={formData.website}>Click here for website</a>}
 
         <AlertDialogFooter>
@@ -32,4 +42,4 @@ function ClubAlert({ formData, isOpen, onClose }) {
     </AlertDialog>
   );
 }
-export default ClubAlert
+export default ClubAlert;

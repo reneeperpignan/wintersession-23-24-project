@@ -1,22 +1,22 @@
 "use client";
-import { TypographyH2, TypographyP } from "@/components/ui/typography";
-import { type Orgs } from "@/lib/firebase/schema";
-import { redirect } from "next/navigation";
-import { useAuthContext } from "../(context)/auth-context";
-
+import { TypographyP } from "@/components/ui/typography";
 import { db } from "@/lib/firebase/firestore";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { type Orgs } from "@/lib/firebase/schema";
+import { type UserInfo } from "firebase/auth";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import AddOrgDialog from "./add-org-dialog";
-import OrgCardCatalog from "./org-card";
+import { useAuthContext } from "../(context)/auth-context";
+import OrgCardComp from "../org-catalog/org-card-comp";
 
-export default function OrgCatalog() {
+export default function RenderComp(userid: UserInfo) {
   const { user } = useAuthContext();
+
   const [orgData, setOrgData] = useState<Orgs[]>([]);
+  console.log("from render comp userid: ", userid.uid);
 
   useEffect(() => {
-    const q = query(collection(db, "orgs"));
-    //where("members", "array-contains", userid.uid)
+    const q = query(collection(db, "orgs"), where("comping", "array-contains", userid.uid));
     const unsub = onSnapshot(q, (snapshot) => {
       const orgList: Orgs[] = snapshot.docs.map(
         (doc): Orgs =>
@@ -28,7 +28,7 @@ export default function OrgCatalog() {
       setOrgData(orgList);
     });
     return unsub;
-  }, []);
+  }, [userid]);
 
   if (!user) {
     // this is a protected route - only users who are signed in can view this route
@@ -40,20 +40,14 @@ export default function OrgCatalog() {
   }
 
   return (
-    <>
-      <TypographyH2>Student Organization Catalog</TypographyH2>
-      Home Page and Favorited List
-      <TypographyP>This is a protected route accessible only to signed-in users.</TypographyP>
-      {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
-      <AddOrgDialog />
-      Your orgs
+    <div>
       <div className="flex h-screen w-screen flex-wrap items-center justify-center">
         {orgData.map((organization: Orgs) => (
           <div key={organization.id}>
-            <OrgCardCatalog orgid={organization.id} userid={user.uid} organization={organization} />
+            <OrgCardComp orgid={organization.id} userid={user.uid} organization={organization} />
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

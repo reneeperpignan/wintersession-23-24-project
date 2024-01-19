@@ -8,13 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import EditOrgDialog from "./edit-org-dialog";
 import { TypographyP } from "@/components/ui/typography";
 import { db } from "@/lib/firebase/firestore";
+import { type Orgs } from "@/lib/firebase/schema";
 import { deleteDoc, doc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useState, type SyntheticEvent } from "react";
-import { type Orgs } from "@/lib/firebase/schema";
+import EditOrgDialog from "./edit-org-dialog";
 
 interface OrgDetailDialogProps {
   id: string;
@@ -24,14 +24,13 @@ interface OrgDetailDialogProps {
 
 export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetailDialogProps) {
   const router = useRouter();
-
   const handleDelete = async (id: string, e: SyntheticEvent) => {
     e.preventDefault();
     const decRef = doc(db, "orgs", id);
     await deleteDoc(decRef);
-    alert('The club is being deleted - may take a few moments to update.');
+    alert("The club is being deleted - may take a few moments to update.");
     router.refresh();
-    alert('The club has been deleted.')
+    alert("The club has been deleted.");
   };
 
   const [isEditing, setIsEditing] = useState(false);
@@ -56,7 +55,7 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
               <b>Directors:</b> {org.directors.reduce((a: string, b: string) => a + ", " + b)}
             </TypographyP>
             <TypographyP>
-              <b>Members:</b> {org.members.reduce((a: string, b: string) => a + ", " + b)}
+              <b>Members:</b> {org.members.length > 0 ? org.members.reduce((a: string, b: string) => a + ", " + b) : ""}
             </TypographyP>
             <TypographyP>
               <b>Mailing List:</b> <a href={org.mailinglist}>{org.mailinglist}</a>
@@ -74,11 +73,7 @@ export default function OrgDetailDialog({ id, org, cardEditsVisible }: OrgDetail
               <b>Time Commitment:</b> {org.timelower}-{org.timeupper} hours per week
             </TypographyP>
             {cardEditsVisible && (
-              <Button
-                id="editButton"
-                variant="outline"
-                onClick={handleEdit}
-              >
+              <Button id="editButton" variant="outline" onClick={handleEdit}>
                 Edit
               </Button>
             )}

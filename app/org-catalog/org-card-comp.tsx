@@ -1,32 +1,93 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Toggle } from "@/components/ui/toggle";
+import { db } from "@/lib/firebase/firestore";
 import { type Orgs } from "@/lib/firebase/schema";
-import { Toggle } from "@/components/ui/toggle"
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import OrgDetailDialog from "./org-detail-dialog";
 
+interface OrgCardProps {
+  organization: Orgs;
+  userid: string;
+  orgid: string;
+}
 
-export default function OrgCardComp(props: Orgs) {
-// Calculate the number of members
-const MemberCount = props.members.length;
+export default function OrgCardComp({ orgid, userid, organization }: OrgCardProps) {
+  const handleFinish = async () => {
+    // e.preventDefault();
+
+    const docRef = doc(db, "orgs", orgid);
+
+    //user.uid is nothing...??
+
+    await updateDoc(docRef, {
+      comping: arrayRemove(userid),
+    });
+
+    await updateDoc(docRef, {
+      members: arrayUnion(userid),
+    });
+
+    alert("removed from comping, added to union");
+
+    // toast({
+    //   title: "Success!",
+    //   description: `You joined ${organization.name}`,
+    // });
+  };
+
+  // Calculate the number of members
+  const MemberCount = organization.members.length;
   return (
     <Card>
       <CardHeader>
-        <Toggle>&#9734;</Toggle> 
+        <Toggle>&#9734;</Toggle>
         <CardDescription>{`${MemberCount} Members`}</CardDescription>
-        <CardTitle>{props.name}</CardTitle>
+        <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        {props.description}
+        {organization.description}
         <div>
-          <Badge variant="outline">{props.timecommitment}</Badge>
-          <Badge variant="outline">{props.comptype}</Badge>
-          <Badge variant="outline">{props.type}</Badge>
+          <Badge variant="outline">{organization.timelower}</Badge>
+          <Badge variant="outline">{organization.timeupper}</Badge>
+          <Badge variant="outline">{organization.comptype}</Badge>
+          <Badge variant="outline">{organization.type}</Badge>
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="outline">More Info</Button>
+        <OrgDetailDialog id={orgid} org={organization} cardEditsVisible={false} />
         Comp Progress <Progress value={33} /> 33%
+        <OrgDetailDialog id={organization.id} org={organization} cardEditsVisible={false} />
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button type="button" variant="outline">
+              Finish comp
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>You really want to leave?</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={() => void handleFinish()}>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </CardFooter>
     </Card>
   );

@@ -1,11 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -66,11 +60,10 @@ export default function EditOrgDialog({ id, org, onClose }: EditProps) {
       })
       .catch((error) => {
         console.log(error);
-        alert("There was an error. Please try again.")
+        alert("There was an error. Please try again.");
       });
 
-      onClose();
-
+    onClose();
   };
 
   return (

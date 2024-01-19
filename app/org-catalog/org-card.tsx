@@ -58,9 +58,13 @@ export default function OrgCardCatalog({ orgid, userid, organization }: OrgCardP
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        {organization.description}
+        {organization.description.slice(0, 150).trim() + "..."}
         <div>
-          <Badge variant="outline">{organization.timeupper}</Badge>
+          {organization.timeupper > 0 && (
+            <Badge variant="outline">
+              {organization.timelower}-{organization.timeupper}hrs
+            </Badge>
+          )}
           <Badge variant="outline">{organization.comptype}</Badge>
           <Badge variant="outline">{organization.type}</Badge>
         </div>

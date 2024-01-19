@@ -52,11 +52,15 @@ export default function OrgCardCurrent({ orgid, userid, organization }: OrgCardP
         <CardTitle>{organization.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        {organization.description}
+        {organization.description.slice(0, 150).trim() + "..."}
         <div>
-          {/* Unclear if badges are needed on this page */}
-          <Badge variant="outline">idk if this is necessary</Badge>
-          {/* <Badge variant="outline">Org Type</Badge> */}
+          {organization.timeupper > 0 && (
+            <Badge variant="outline">
+              {organization.timelower}-{organization.timeupper}hrs
+            </Badge>
+          )}
+          <Badge variant="outline">{organization.comptype}</Badge>
+          <Badge variant="outline">{organization.type}</Badge>
         </div>
       </CardContent>
       <CardFooter>

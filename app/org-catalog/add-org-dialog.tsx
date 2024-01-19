@@ -165,8 +165,6 @@ export default function AddOrgDialog() {
 
   const handleReset = (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log("clear");
-
     setName("");
     setDescription("");
     setMembers([]);
@@ -430,7 +428,6 @@ export default function AddOrgDialog() {
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
       />
-      ;
     </div>
   );
 }

@@ -42,11 +42,11 @@ export default function OrgCatalog() {
   return (
     <>
       <TypographyH2>Student Organization Catalog</TypographyH2>
-      Home Page and Favorited List
-      <TypographyP>This is a protected route accessible only to signed-in users.</TypographyP>
-      {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
+      <TypographyP>
+        Organizations offered by the College. {user.email && <TypographyP>Your email is {user.email}</TypographyP>}
+      </TypographyP>
+
       <AddOrgDialog />
-      Your orgs
       <div className="flex h-screen w-screen flex-wrap items-center justify-center">
         {orgData.map((organization: Orgs) => (
           <div key={organization.id}>

@@ -24,7 +24,7 @@ export default function Comping() {
         uid={user.uid}
         displayName={user.displayName}
         email={user.email} //all things we don't need rn
-        phoneNumber={null}
+        phoneNumber={null} 
         photoURL={null}
         providerId=""
       />

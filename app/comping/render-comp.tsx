@@ -41,7 +41,7 @@ export default function RenderComp(userid: UserInfo) {
 
   return (
     <div>
-      <div className="flex w-screen flex-wrap items-center justify-left gap-x-4 gap-y-4">
+      <div className="flex w-screen flex-wrap items-start justify-left gap-x-4 gap-y-4">
         {orgData.map((organization: Orgs) => (
           <div key={organization.id}>
             <OrgCardComp orgid={organization.id} userid={user.uid} organization={organization} />
